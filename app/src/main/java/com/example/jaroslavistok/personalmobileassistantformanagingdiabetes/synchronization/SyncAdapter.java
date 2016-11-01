@@ -10,6 +10,13 @@ import android.content.SyncResult;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 /**
  * Handle the transfer of data between a server and an
  * app, using the Android sync adapter framework.
@@ -55,5 +62,24 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {
         Log.w("", "onPerformsync method");
+
+        RequestQueue queue = Volley.newRequestQueue(this.getContext());
+        String url ="http://davinci.fmph.uniba.sk/~istok7/webservice/?dump_param=4";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.w("Response", response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.w("Response", "Didnt work");
+            }
+        });
+
+        queue.add(stringRequest);
     }
 }
