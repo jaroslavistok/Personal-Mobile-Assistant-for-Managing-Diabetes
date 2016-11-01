@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <provider
             android:name=".providers.DummyContentProvider"
-            android:authorities="dummycontentprovider"
+            android:authorities="com.example.android.datasync.provider"
             android:enabled="true"
             android:exported="false">
         </provider>

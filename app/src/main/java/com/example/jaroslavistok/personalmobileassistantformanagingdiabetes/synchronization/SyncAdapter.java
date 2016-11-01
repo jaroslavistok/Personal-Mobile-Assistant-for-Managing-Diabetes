@@ -29,6 +29,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
          * If your app uses a content resolver, get an instance of it
          * from the incoming Context
          */
+
+        Log.w("something", "sync adapter construktor");
         mContentResolver = context.getContentResolver();
     }
 
@@ -52,6 +54,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     @Override
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {
-        Log.w("ss", "ss");
+        Log.w("", "onPerformsync method");
     }
 }

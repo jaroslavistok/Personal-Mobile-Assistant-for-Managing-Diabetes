@@ -16,7 +16,7 @@ import static android.content.ContentResolver.SCHEME_CONTENT;
 public class DummyContentProvider extends ContentProvider {
 
     /* autorita content providera - zaklad url adresy */
-    public static final String AUTHORITY = "dummycontentprovider";
+    public static final String AUTHORITY = "com.example.android.datasync.provider";
     public static final Uri CONTENT_URI = new Uri.Builder()
                                                 .scheme(SCHEME_CONTENT)
                                                 .authority(AUTHORITY)
