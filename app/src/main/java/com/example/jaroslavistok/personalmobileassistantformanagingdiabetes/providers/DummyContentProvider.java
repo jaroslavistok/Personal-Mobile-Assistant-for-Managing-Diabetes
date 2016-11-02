@@ -24,6 +24,7 @@ public class DummyContentProvider extends ContentProvider {
                                                 .build();
 
     public DummyContentProvider() {
+
     }
 
     @Override
