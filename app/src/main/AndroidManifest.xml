@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
-            android:name=".providers.DummyContentProvider"
+            android:name=".providers.EntriesContentProvider"
             android:authorities="com.example.android.datasync.provider"
             android:enabled="true"
             android:exported="false">

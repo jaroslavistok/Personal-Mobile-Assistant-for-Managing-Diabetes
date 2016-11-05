@@ -32,22 +32,21 @@ public class RestClient
 
         ApiService service = restAdapter2.create(ApiService.class);
 
-        Call<Integer> exampleCall = apiService.getDummieContent(6);
 
-        UploadObject uploadObject = new UploadObject();
-        uploadObject.age = 2;
-        uploadObject.name = "Jaro";
-        uploadObject.label = "label";
-        Call<Integer> exampleCall2 = service.postWithJSON(uploadObject);
+        UploadObject uploadObject = new UploadObject("Jaro", "Istok", 100);
+        Call<String> exampleCall2 = service.postWithJSON(uploadObject);
 
-        exampleCall2.enqueue(new Callback<Integer>() {
+        exampleCall2.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 Log.w("upload", "upload response");
+
+                String responsedata = response.body();
+                Log.w("on", responsedata);
             }
 
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Log.w("upload", "upload failure");
                 Log.w("smth", t.getMessage());
                 Log.w(call.request().url().toString(), "ee");
@@ -55,20 +54,7 @@ public class RestClient
             }
         });
 
-        exampleCall.enqueue(new Callback<Integer>() {
-            @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                Log.w("on", "response");
-                Integer pojoExample = response.body();
-                Log.w("on", pojoExample.toString());
 
-            }
-
-            @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
-                Log.w("on", "failure");
-            }
-        });
     }
 
     public ApiService getApiService()

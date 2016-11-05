@@ -1,13 +1,13 @@
 package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.retrofit;
 
-import org.parceler.Parcel;
-
-
-@Parcel
 public class UploadObject {
+    final String name;
+    final String label;
+    final int age;
 
-    String name;
-    String label;
-    int age;
-
+    public UploadObject(String name, String label, int age){
+        this.name = name;
+        this.label = label;
+        this.age = age;
+    }
 }
