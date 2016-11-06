@@ -57,6 +57,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {
         Log.w("", "onPerformsync method");
+
         RestClient restClient = new RestClient();
+        restClient.setContentProviderClient(contentProviderClient);
+        restClient.getDataFromContentProvider();
+        restClient.synchronizeData();
     }
 }

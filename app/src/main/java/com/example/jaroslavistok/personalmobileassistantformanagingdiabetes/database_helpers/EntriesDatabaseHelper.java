@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_contracts.DatabaseContracts.Entry;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues;
@@ -36,10 +37,12 @@ public class EntriesDatabaseHelper extends SQLiteOpenHelper {
 
     private String createTableSql() {
         String sqlPrepareTemplate = "CREATE TABLE %s ("
-                            + "%s INTEGER PRIMARY KEY AUTOINCREMENT"
-                            + "%s VARCHAR(5)"
+                            + "%s INTEGER PRIMARY KEY AUTOINCREMENT,"
+                            + "%s VARCHAR(5),"
                             + "%s DATETIME"
                             + ")";
+
+        Log.w("sql", sqlPrepareTemplate);
 
         return String.format(sqlPrepareTemplate, Entry.TABLE_NAME, Entry._ID, Entry.GLUCOSE, Entry.TIMESTAMP);
     }

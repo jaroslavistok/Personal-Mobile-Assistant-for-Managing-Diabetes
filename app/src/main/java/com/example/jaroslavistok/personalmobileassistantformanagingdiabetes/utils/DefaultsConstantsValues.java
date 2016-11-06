@@ -1,6 +1,7 @@
 package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils;
 
 
+import android.content.DialogInterface;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -39,6 +40,8 @@ public interface DefaultsConstantsValues {
 
     String NO_TYPE = null;
 
-    Uri NO_URI = null;
+    Uri NO_URI = Uri.EMPTY;
+
+    DialogInterface.OnClickListener DISMISS_ACTION = null;
 }
 
