@@ -3,4 +3,5 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="study_cursors">Study cursors</string>
     <string name="_3">3</string>
+    <string name="title_activity_calendar_api">CalendarAPI</string>
 </resources>

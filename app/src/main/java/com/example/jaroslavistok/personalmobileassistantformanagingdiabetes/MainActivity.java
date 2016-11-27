@@ -176,7 +176,6 @@ public class MainActivity extends AppCompatActivity implements  android.app.Load
 
 
     public class SyncContentObserver extends ContentObserver {
-
         public SyncContentObserver() {
             super(null);
         }
@@ -191,10 +190,6 @@ public class MainActivity extends AppCompatActivity implements  android.app.Load
             Log.w("onchange", changeUri.toString());
             ContentResolver.requestSync(mAccount, AUTHORITY, Bundle.EMPTY);
         }
-
-
-
-
     }
 
 }

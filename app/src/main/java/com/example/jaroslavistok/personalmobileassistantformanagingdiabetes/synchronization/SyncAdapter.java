@@ -12,19 +12,12 @@ import android.util.Log;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.retrofit.RestClient;
 
-/**
- * Handle the transfer of data between a server and an
- * app, using the Android sync adapter framework.
- */
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     // Global variables
     // Define a variable to contain a content resolver instance
     ContentResolver mContentResolver;
 
-    /**
-     * Set up the sync adapter
-     */
     public SyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         /*
@@ -36,11 +29,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         mContentResolver = context.getContentResolver();
     }
 
-    /**
-     * Set up the sync adapter. This form of the
-     * constructor maintains compatibility with Android 3.0
-     * and later platform versions
-     */
     public SyncAdapter(
             Context context,
             boolean autoInitialize,

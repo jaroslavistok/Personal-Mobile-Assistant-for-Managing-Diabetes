@@ -76,7 +76,9 @@ public class RestClient {
             EntryData entry = new EntryData();
             entry.setGlucose(glucoses.get(i));
             entry.setTime(times.get(i));
+
             Call<String> uploadDataCall = apiService.postWithJSON(entry);
+
             uploadDataCall.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
