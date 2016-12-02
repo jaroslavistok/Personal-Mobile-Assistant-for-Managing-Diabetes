@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -28,6 +29,8 @@ import android.widget.Toast;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_contracts.DatabaseContracts;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.providers.EntriesContentProvider;
 
+import java.util.Calendar;
+
 import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.DISMISS_ACTION;
 import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_COOKIE;
 import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_CURSOR;
@@ -37,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements  android.app.Load
 
     private SimpleCursorAdapter entriesViewAdapter;
     private ListView entriesListView;
-
-
 
     // Constants
     // The authority for the sync listViewAdapter's content provider
@@ -111,6 +112,21 @@ public class MainActivity extends AppCompatActivity implements  android.app.Load
                 SYNC_INTERVAL);
 
         Log.w("Requested sync", "Requested sync");
+
+        addEntrySampleToCalendar();
+    }
+
+    public void addEntrySampleToCalendar(){
+        Calendar cal = Calendar.getInstance();
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra("beginTime", cal.getTimeInMillis());
+        intent.putExtra("allDay", false);
+        intent.putExtra("rrule", "FREQ=DAILY");
+        intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+        intent.putExtra("title", "A Test Event from android app");
+        startActivity(intent);
+        Log.w("Calendar", "Calendar added");
     }
 
     public static Account CreateSyncAccount(Context context) {
