@@ -50,5 +50,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         restClient.setContentProviderClient(contentProviderClient);
         restClient.getDataFromContentProvider();
         restClient.synchronizeData();
+
+        Log.w("", "Tokenik");
     }
 }

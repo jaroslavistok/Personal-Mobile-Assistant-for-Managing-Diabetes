@@ -3,17 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
+
     <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/glucose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/study_cursors"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_weight="0.36" />
+
     <TextView
-        android:id="@+id/time"
+        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="@string/_3"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:id="@+id/kategoria"
+        android:layout_weight="1" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datum"
+        android:layout_weight="1" />
 </LinearLayout>

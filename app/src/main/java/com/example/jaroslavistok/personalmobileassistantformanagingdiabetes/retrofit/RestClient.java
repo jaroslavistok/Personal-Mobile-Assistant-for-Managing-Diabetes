@@ -24,15 +24,15 @@ import static com.example.jaroslavistok.personalmobileassistantformanagingdiabet
 
 
 public class RestClient {
-
     private ContentProviderClient contentProviderClient;
 
     private static final String BASE_URL = "http://davinci.fmph.uniba.sk/~istok7/";
 
-
     private ApiService apiService;
+
     private List<String> glucoses;
-    private List<String> times;
+    private List<String> dateTimes;
+    private List<String> categories;
 
     public void getDataFromContentProvider(){
         Cursor cursor = null;
@@ -44,7 +44,8 @@ public class RestClient {
         }
 
         glucoses = new ArrayList<>();
-        times = new ArrayList<>();
+        dateTimes = new ArrayList<>();
+        categories = new ArrayList<>();
 
         if (cursor != null) {
             cursor.moveToFirst();
@@ -52,7 +53,8 @@ public class RestClient {
 
             while (!cursor.isAfterLast()) {
                 glucoses.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.GLUCOSE)));
-                times.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.TIMESTAMP)));
+                dateTimes.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.TIMESTAMP)));
+                categories.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.CATEGORY)));
                 cursor.moveToNext();
             }
 
@@ -75,7 +77,9 @@ public class RestClient {
         for(int i = 0; i < glucoses.size(); i++){
             EntryData entry = new EntryData();
             entry.setGlucose(glucoses.get(i));
-            entry.setTime(times.get(i));
+            entry.setDateTime(dateTimes.get(i));
+            entry.setCategory(categories.get(i));
+            Log.w("dd", categories.get(i));
 
             Call<String> uploadDataCall = apiService.postWithJSON(entry);
 

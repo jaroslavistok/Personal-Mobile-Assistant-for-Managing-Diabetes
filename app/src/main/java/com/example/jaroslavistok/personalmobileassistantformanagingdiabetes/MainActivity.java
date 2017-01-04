@@ -15,10 +15,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -63,9 +63,8 @@ public class MainActivity extends AppCompatActivity implements  android.app.Load
     Account mAccount;
 
     private ListAdapter initializeEntriesAdapter(){
-        Log.w("exotic", "adapter initialization");
-        String[] from = {DatabaseContracts.Entry.GLUCOSE, DatabaseContracts.Entry.TIMESTAMP};
-        int[] to = {R.id.glucose, R.id.time};
+        String[] from = {DatabaseContracts.Entry.GLUCOSE, DatabaseContracts.Entry.CATEGORY, DatabaseContracts.Entry.TIMESTAMP};
+        int[] to = {R.id.glucose, R.id.kategoria, R.id.datum};
         entriesViewAdapter = new SimpleCursorAdapter(this, R.layout.entry_item, NO_CURSOR, from, to, NO_FLAGS);
         return entriesViewAdapter;
     }
@@ -92,9 +91,6 @@ public class MainActivity extends AppCompatActivity implements  android.app.Load
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
                 createNewNote();
             }
         });
@@ -105,15 +101,15 @@ public class MainActivity extends AppCompatActivity implements  android.app.Load
 
         ContentResolver.setIsSyncable(mAccount, AUTHORITY, 1);
         ContentResolver.setSyncAutomatically(mAccount, AUTHORITY, true);
-        ContentResolver.addPeriodicSync(
-                mAccount,
-                AUTHORITY,
-                Bundle.EMPTY,
-                SYNC_INTERVAL);
+//        ContentResolver.addPeriodicSync(
+//                mAccount,
+//                AUTHORITY,
+//                Bundle.EMPTY,
+//                SYNC_INTERVAL);
 
         Log.w("Requested sync", "Requested sync");
 
-        addEntrySampleToCalendar();
+        //addEntrySampleToCalendar();
     }
 
     public void addEntrySampleToCalendar(){
@@ -141,25 +137,42 @@ public class MainActivity extends AppCompatActivity implements  android.app.Load
 
 
     private void createNewNote() {
-        final EditText descriptionEditText = new EditText(this);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+
+        final View view = inflater.inflate(R.layout.input_dialog, null);
+
+
         new AlertDialog.Builder(this)
                 .setTitle("Add a new note")
-                .setView(descriptionEditText)
+                .setView(view)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String description = descriptionEditText.getText().toString();
-                        insertIntoContentProvider(description);
+                        EditText categoryEditText = (EditText) view.findViewById(R.id.category_input);
+                        EditText glucoseEditText = (EditText) view.findViewById(R.id.glucose_input);
+
+                        String category = null;
+                        if (categoryEditText != null) {
+                            category = categoryEditText.getText().toString();
+                        }
+                        String glucose = null;
+                        if (glucoseEditText != null) {
+                            glucose = glucoseEditText.getText().toString();
+                        }
+
+                        insertIntoContentProvider(category, glucose);
                     }
                 })
                 .setNegativeButton("Cancel", DISMISS_ACTION)
                 .show();
     }
 
-    private void insertIntoContentProvider(String glucose) {
+    private void insertIntoContentProvider(String category, String glucose) {
         Uri uri = EntriesContentProvider.CONTENT_URI;
         ContentValues values = new ContentValues();
         values.put(DatabaseContracts.Entry.GLUCOSE, glucose);
+        values.put(DatabaseContracts.Entry.CATEGORY, category);
 
         AsyncQueryHandler insertHandler = new AsyncQueryHandler(getContentResolver()) {
             @Override

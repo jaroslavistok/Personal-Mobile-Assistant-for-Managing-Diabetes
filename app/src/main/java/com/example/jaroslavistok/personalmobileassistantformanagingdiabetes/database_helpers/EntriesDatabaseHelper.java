@@ -29,8 +29,8 @@ public class EntriesDatabaseHelper extends SQLiteOpenHelper {
 
         // inserting some sample data to database
 
-        for (int i = 0; i < 3; i++)
-            insertSampleEntry(sqLiteDatabase);
+//        for (int i = 0; i < 3; i++)
+//            insertSampleEntry(sqLiteDatabase);
 
 
     }
@@ -39,12 +39,13 @@ public class EntriesDatabaseHelper extends SQLiteOpenHelper {
         String sqlPrepareTemplate = "CREATE TABLE %s ("
                             + "%s INTEGER PRIMARY KEY AUTOINCREMENT,"
                             + "%s VARCHAR(5),"
+                            + "%s VARCHAR(5),"
                             + "%s DATETIME"
                             + ")";
 
         Log.w("sql", sqlPrepareTemplate);
 
-        return String.format(sqlPrepareTemplate, Entry.TABLE_NAME, Entry._ID, Entry.GLUCOSE, Entry.TIMESTAMP);
+        return String.format(sqlPrepareTemplate, Entry.TABLE_NAME, Entry._ID, Entry.GLUCOSE, Entry.CATEGORY, Entry.TIMESTAMP);
     }
 
     @Override
@@ -57,6 +58,7 @@ public class EntriesDatabaseHelper extends SQLiteOpenHelper {
         ContentValues sampleContentValues = new ContentValues();
         sampleContentValues.put(Entry.TIMESTAMP, System.currentTimeMillis() / 1000);
         sampleContentValues.put(Entry.GLUCOSE, 12);
+        sampleContentValues.put(Entry.CATEGORY, "ranajky");
         db.insert(Entry.TABLE_NAME, DefaultsConstantsValues.NO_NULL_COLUMN_HACK, sampleContentValues);
 
 
