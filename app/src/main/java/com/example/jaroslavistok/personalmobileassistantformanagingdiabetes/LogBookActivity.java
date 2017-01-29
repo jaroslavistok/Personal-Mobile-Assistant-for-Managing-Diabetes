@@ -2,28 +2,19 @@ package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.AlertDialog;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_contracts.DatabaseContracts;
@@ -31,15 +22,12 @@ import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.prov
 
 import java.util.Calendar;
 
-import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.DISMISS_ACTION;
 import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_COOKIE;
-import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_CURSOR;
-import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_FLAGS;
 
-public class MainActivity extends AppCompatActivity implements  android.app.LoaderManager.LoaderCallbacks<Cursor> {
+public class LogBookActivity extends AppCompatActivity implements  android.app.LoaderManager.LoaderCallbacks<Cursor> {
 
-    private SimpleCursorAdapter entriesViewAdapter;
-    private ListView entriesListView;
+//    private SimpleCursorAdapter entriesViewAdapter;
+//    private ListView entriesListView;
 
     // Constants
     // The authority for the sync listViewAdapter's content provider
@@ -63,37 +51,36 @@ public class MainActivity extends AppCompatActivity implements  android.app.Load
     Account mAccount;
 
     private ListAdapter initializeEntriesAdapter(){
-        String[] from = {DatabaseContracts.Entry.GLUCOSE, DatabaseContracts.Entry.CATEGORY, DatabaseContracts.Entry.TIMESTAMP};
-        int[] to = {R.id.glucose, R.id.kategoria, R.id.datum};
-        entriesViewAdapter = new SimpleCursorAdapter(this, R.layout.entry_item, NO_CURSOR, from, to, NO_FLAGS);
-        return entriesViewAdapter;
+//        String[] from = {DatabaseContracts.Entry.GLUCOSE, DatabaseContracts.Entry.CATEGORY, DatabaseContracts.Entry.TIMESTAMP};
+//        int[] to = {R.id.glucose, R.id.kategoria, R.id.datum};
+//        entriesViewAdapter = new SimpleCursorAdapter(this, R.layout.entry_item, NO_CURSOR, from, to, NO_FLAGS);
+//        return entriesViewAdapter;
+        return null;
     }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_log_book);
 
 
         SyncContentObserver observer = new SyncContentObserver();
         getContentResolver().registerContentObserver(EntriesContentProvider.CONTENT_URI, true, observer);
 
-        entriesListView = (ListView) findViewById(R.id.entriesListView);
-        entriesListView.setAdapter(initializeEntriesAdapter());
+//        entriesListView = (ListView) findViewById(R.id.entriesListView);
+//        entriesListView.setAdapter(initializeEntriesAdapter());
 
         getLoaderManager().initLoader(NOTES_LOADER_ID, Bundle.EMPTY, this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createNewNote();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                createNewNote();
+//            }
+//        });
 
         mAccount = CreateSyncAccount(this);
 
@@ -137,47 +124,47 @@ public class MainActivity extends AppCompatActivity implements  android.app.Load
 
 
     private void createNewNote() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
+//        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+//        LayoutInflater inflater = getLayoutInflater();
 
-        final View view = inflater.inflate(R.layout.input_dialog, null);
-
-
-        new AlertDialog.Builder(this)
-                .setTitle("Add a new note")
-                .setView(view)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EditText categoryEditText = (EditText) view.findViewById(R.id.category_input);
-                        EditText glucoseEditText = (EditText) view.findViewById(R.id.glucose_input);
-
-                        String category = null;
-                        if (categoryEditText != null) {
-                            category = categoryEditText.getText().toString();
-                        }
-                        String glucose = null;
-                        if (glucoseEditText != null) {
-                            glucose = glucoseEditText.getText().toString();
-                        }
-
-                        insertIntoContentProvider(category, glucose);
-                    }
-                })
-                .setNegativeButton("Cancel", DISMISS_ACTION)
-                .show();
+//        final View view = inflater.inflate(R.layout.input_dialog, null);
+//
+//
+//        new AlertDialog.Builder(this)
+//                .setTitle("Add a new note")
+//                .setView(view)
+//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        EditText categoryEditText = (EditText) view.findViewById(R.id.category_input);
+//                        EditText glucoseEditText = (EditText) view.findViewById(R.id.glucose_input);
+//
+//                        String category = null;
+//                        if (categoryEditText != null) {
+//                            category = categoryEditText.getText().toString();
+//                        }
+//                        String glucose = null;
+//                        if (glucoseEditText != null) {
+//                            glucose = glucoseEditText.getText().toString();
+//                        }
+//
+//                        insertIntoContentProvider(category, glucose);
+//                    }
+//                })
+//                .setNegativeButton("Cancel", DISMISS_ACTION)
+//                .show();
     }
 
     private void insertIntoContentProvider(String category, String glucose) {
         Uri uri = EntriesContentProvider.CONTENT_URI;
         ContentValues values = new ContentValues();
-        values.put(DatabaseContracts.Entry.GLUCOSE, glucose);
+//        values.put(DatabaseContracts.Entry.GLUCOSE, glucose);
         values.put(DatabaseContracts.Entry.CATEGORY, category);
 
         AsyncQueryHandler insertHandler = new AsyncQueryHandler(getContentResolver()) {
             @Override
             protected void onInsertComplete(int token, Object cookie, Uri uri) {
-                Toast.makeText(MainActivity.this, "Note was saved", Toast.LENGTH_SHORT)
+                Toast.makeText(LogBookActivity.this, "Note was saved", Toast.LENGTH_SHORT)
                         .show();
             }
         };
@@ -195,12 +182,12 @@ public class MainActivity extends AppCompatActivity implements  android.app.Load
 
     @Override
     public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor cursor) {
-        this.entriesViewAdapter.swapCursor(cursor);
+//        this.entriesViewAdapter.swapCursor(cursor);
     }
 
     @Override
     public void onLoaderReset(android.content.Loader<Cursor> loader) {
-        this.entriesViewAdapter.swapCursor(NO_CURSOR);
+//        this.entriesViewAdapter.swapCursor(NO_CURSOR);
     }
 
 

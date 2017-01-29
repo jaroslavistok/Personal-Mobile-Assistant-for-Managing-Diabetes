@@ -17,17 +17,19 @@
             android:name=".providers.EntriesContentProvider"
             android:authorities="com.example.android.datasync.provider"
             android:enabled="true"
-            android:exported="false">
-        </provider>
+            android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".LogBookActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
-        <activity android:name=".HomeScreen">
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AddLogActivity"
+            android:label="@string/title_activity_add_log"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".HomeScreen"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,23 +58,21 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter" />
         </service>
-
-        <service
-            android:name=".synchronization.SyncingFirebaseMessagingService">
+        <service android:name=".synchronization.SyncingFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".synchronization.SyncingFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name=".synchronization.SyncingFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
-
-
-
+        <activity
+            android:name=".AddLogEntry"
+            android:label="@string/title_activity_add_log_entry"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -52,8 +52,8 @@ public class RestClient {
             cursor.moveToLast();
 
             while (!cursor.isAfterLast()) {
-                glucoses.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.GLUCOSE)));
-                dateTimes.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.TIMESTAMP)));
+//                glucoses.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.GLUCOSE)));
+//                dateTimes.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.TIMESTAMP)));
                 categories.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.CATEGORY)));
                 cursor.moveToNext();
             }

@@ -8,7 +8,7 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/glucose"
+        android:id="@+id/glucose_text_field"
         android:layout_weight="0.36" />
 
     <TextView

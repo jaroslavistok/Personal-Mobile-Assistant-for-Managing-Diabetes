@@ -27,10 +27,35 @@ public class HomeScreen extends AppCompatActivity {
         addLogEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeScreen.this, MainActivity.class));
+                finish();
+                startActivity(new Intent(HomeScreen.this, AddLogEntry.class));
             }
         });
 
+        showDatabaseButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(HomeScreen.this, LogBookActivity.class));
+            }
 
+        });
+
+        showDataButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(HomeScreen.this, AddLogEntry.class));
+            }
+
+        });
+
+        showStatisticsButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(HomeScreen.this, AddLogEntry.class));
+            }
+        });
     }
 }

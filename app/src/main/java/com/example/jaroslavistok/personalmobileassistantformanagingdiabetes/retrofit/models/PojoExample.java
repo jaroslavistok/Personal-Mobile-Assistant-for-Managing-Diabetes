@@ -19,5 +19,4 @@ public class PojoExample
         return login + " " + id;
     }
 
-    //Getters and setters
 }
