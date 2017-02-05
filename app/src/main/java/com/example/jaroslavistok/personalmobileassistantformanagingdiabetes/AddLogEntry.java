@@ -52,7 +52,7 @@ public class AddLogEntry extends AppCompatActivity {
 
                 saveDataToDatabase();
                 finish();
-                startActivity(new Intent(AddLogEntry.this, HomeScreen.class));
+                startActivity(new Intent(AddLogEntry.this, LogBookActivity.class));
             }
         });
 

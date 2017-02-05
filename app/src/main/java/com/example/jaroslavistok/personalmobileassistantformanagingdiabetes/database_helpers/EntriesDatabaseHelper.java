@@ -1,5 +1,6 @@
 package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_helpers;
 
+import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -25,11 +26,12 @@ public class EntriesDatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, DefaultsConstantsValues.DEFAULT_CURSOR_FACTORY, DATABASE_VERSION);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
+    @TargetApi(Build.VERSION_CODES.N)
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(createTableSql());
-
+        Log.w("created", "Initialized");
         for (int i = 0; i < 2; i++)
             insertSampleEntry(sqLiteDatabase);
     }
@@ -38,15 +40,24 @@ public class EntriesDatabaseHelper extends SQLiteOpenHelper {
         String sqlPrepareTemplate = "CREATE TABLE %s ("
                             + "%s INTEGER PRIMARY KEY AUTOINCREMENT,"
                             + "%s TEXT,"
-                            + "%s TEXT"
-                            + "%s REAL"
-                            + "%s REAL"
-                            + "%s REAL"
-                            + "%s TEXT"
+                            + "%s TEXT,"
+                            + "%s REAL,"
+                            + "%s REAL,"
+                            + "%s REAL,"
+                            + "%s TEXT,"
                             + "%s INT DEFAULT 0"
                             + ")";
 
-        Log.w("sql", sqlPrepareTemplate);
+        Log.w("sql", String.format(sqlPrepareTemplate,
+                Entry.TABLE_NAME,
+                Entry._ID,
+                Entry.DATE,
+                Entry.TIME,
+                Entry.GLUCOSE_VALUE,
+                Entry.FAST_INSULIN,
+                Entry.SLOW_INSULIN,
+                Entry.NOTE,
+                Entry.SYNCHORNIZED));
 
         return String.format(sqlPrepareTemplate,
                 Entry.TABLE_NAME,
@@ -58,6 +69,8 @@ public class EntriesDatabaseHelper extends SQLiteOpenHelper {
                 Entry.SLOW_INSULIN,
                 Entry.NOTE,
                 Entry.SYNCHORNIZED);
+
+
     }
 
     @Override

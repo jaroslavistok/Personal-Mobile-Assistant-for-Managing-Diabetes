@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_helpers.EntriesDatabaseHelper;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.recycler_view_test.MainActivity;
+
 public class HomeScreen extends AppCompatActivity {
 
     private ImageButton addLogEntryButton;
@@ -17,6 +20,9 @@ public class HomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        EntriesDatabaseHelper entriesDatabaseHelper = new EntriesDatabaseHelper(this);
+        
 
         addLogEntryButton =  (ImageButton) findViewById(R.id.addButton);
         showDatabaseButton = (ImageButton) findViewById(R.id.showDatabaseButton);
@@ -36,7 +42,7 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(HomeScreen.this, LogBookActivity.class));
+                startActivity(new Intent(HomeScreen.this, MainActivity.class));
             }
 
         });

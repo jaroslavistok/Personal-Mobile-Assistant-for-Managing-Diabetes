@@ -7,26 +7,30 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ListAdapter;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.LogBookAdapter;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_contracts.DatabaseContracts;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.providers.EntriesContentProvider;
 
-import java.util.Calendar;
-
 import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_COOKIE;
+import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_CURSOR;
+import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_FLAGS;
 
 public class LogBookActivity extends AppCompatActivity implements  android.app.LoaderManager.LoaderCallbacks<Cursor> {
 
-//    private SimpleCursorAdapter entriesViewAdapter;
+    private SimpleCursorAdapter entriesViewAdapter;
+    private LogBookAdapter logBookAdapter;
 //    private ListView entriesListView;
 
     // Constants
@@ -51,12 +55,13 @@ public class LogBookActivity extends AppCompatActivity implements  android.app.L
     Account mAccount;
 
     private ListAdapter initializeEntriesAdapter(){
-//        String[] from = {DatabaseContracts.Entry.GLUCOSE, DatabaseContracts.Entry.CATEGORY, DatabaseContracts.Entry.TIMESTAMP};
-//        int[] to = {R.id.glucose, R.id.kategoria, R.id.datum};
-//        entriesViewAdapter = new SimpleCursorAdapter(this, R.layout.entry_item, NO_CURSOR, from, to, NO_FLAGS);
-//        return entriesViewAdapter;
-        return null;
+        String[] from = {DatabaseContracts.Entry.DATE, DatabaseContracts.Entry.CATEGORY, DatabaseContracts.Entry.GLUCOSE_VALUE};
+        int[] to = {R.id.date, R.id.category, R.id.date};
+        entriesViewAdapter = new SimpleCursorAdapter(this, R.layout.row_layout, NO_CURSOR, from, to, NO_FLAGS);
+        return entriesViewAdapter;
     }
+
+
 
 
     @Override
@@ -68,19 +73,15 @@ public class LogBookActivity extends AppCompatActivity implements  android.app.L
         SyncContentObserver observer = new SyncContentObserver();
         getContentResolver().registerContentObserver(EntriesContentProvider.CONTENT_URI, true, observer);
 
-//        entriesListView = (ListView) findViewById(R.id.entriesListView);
-//        entriesListView.setAdapter(initializeEntriesAdapter());
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        LogBookAdapter adapter = new LogBookAdapter(this, null);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Log.w("Recycler view shown", "Recycler view show");
 
         getLoaderManager().initLoader(NOTES_LOADER_ID, Bundle.EMPTY, this);
 
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                createNewNote();
-//            }
-//        });
 
         mAccount = CreateSyncAccount(this);
 
@@ -96,20 +97,6 @@ public class LogBookActivity extends AppCompatActivity implements  android.app.L
 
         Log.w("Requested sync", "Requested sync");
 
-        //addEntrySampleToCalendar();
-    }
-
-    public void addEntrySampleToCalendar(){
-        Calendar cal = Calendar.getInstance();
-        Intent intent = new Intent(Intent.ACTION_EDIT);
-        intent.setType("vnd.android.cursor.item/event");
-        intent.putExtra("beginTime", cal.getTimeInMillis());
-        intent.putExtra("allDay", false);
-        intent.putExtra("rrule", "FREQ=DAILY");
-        intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
-        intent.putExtra("title", "A Test Event from android app");
-        startActivity(intent);
-        Log.w("Calendar", "Calendar added");
     }
 
     public static Account CreateSyncAccount(Context context) {
@@ -122,38 +109,6 @@ public class LogBookActivity extends AppCompatActivity implements  android.app.L
         return newAccount;
     }
 
-
-    private void createNewNote() {
-//        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-//        LayoutInflater inflater = getLayoutInflater();
-
-//        final View view = inflater.inflate(R.layout.input_dialog, null);
-//
-//
-//        new AlertDialog.Builder(this)
-//                .setTitle("Add a new note")
-//                .setView(view)
-//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        EditText categoryEditText = (EditText) view.findViewById(R.id.category_input);
-//                        EditText glucoseEditText = (EditText) view.findViewById(R.id.glucose_input);
-//
-//                        String category = null;
-//                        if (categoryEditText != null) {
-//                            category = categoryEditText.getText().toString();
-//                        }
-//                        String glucose = null;
-//                        if (glucoseEditText != null) {
-//                            glucose = glucoseEditText.getText().toString();
-//                        }
-//
-//                        insertIntoContentProvider(category, glucose);
-//                    }
-//                })
-//                .setNegativeButton("Cancel", DISMISS_ACTION)
-//                .show();
-    }
 
     private void insertIntoContentProvider(String category, String glucose) {
         Uri uri = EntriesContentProvider.CONTENT_URI;

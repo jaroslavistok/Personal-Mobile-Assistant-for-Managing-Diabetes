@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_contracts.DatabaseContracts;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_helpers.EntriesDatabaseHelper;
@@ -40,6 +41,7 @@ public class EntriesContentProvider extends ContentProvider {
 
     public EntriesContentProvider() {
 
+
     }
 
     @Override
@@ -60,7 +62,7 @@ public class EntriesContentProvider extends ContentProvider {
 
         SQLiteDatabase writeableDatabase = databaseHelper.getWritableDatabase();
         long insertedEntryItem = writeableDatabase.insert(DatabaseContracts.Entry.TABLE_NAME, NO_NULL_COLUMN_HACK, values);
-
+        Log.w("inserted", String.valueOf(insertedEntryItem));
         Uri insertedEntryUri =  ContentUris.withAppendedId(CONTENT_URI, insertedEntryItem);
 
         getContext().getContentResolver().notifyChange(insertedEntryUri, NO_CONTENT_OBSERVER);
