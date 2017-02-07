@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.alarm_example.AlarmActivity;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_helpers.EntriesDatabaseHelper;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.recycler_view_test.MainActivity;
 
@@ -42,7 +43,7 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(HomeScreen.this, MainActivity.class));
+                startActivity(new Intent(HomeScreen.this, AlarmActivity.class));
             }
 
         });
@@ -51,7 +52,7 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(HomeScreen.this, AddLogEntry.class));
+                startActivity(new Intent(HomeScreen.this, MainActivity.class));
             }
 
         });
