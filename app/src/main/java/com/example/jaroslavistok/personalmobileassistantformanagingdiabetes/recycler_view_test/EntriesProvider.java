@@ -14,61 +14,54 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-public class RequestProvider extends ContentProvider {
-    private static final String TAG = "RequestProvider";
-
-    private SQLiteOpenHelper mSqliteOpenHelper;
-    private static final UriMatcher sUriMatcher;
-
+public class EntriesProvider extends ContentProvider {
+    private static final String TAG = "EntriesProvider";
+    private SQLiteOpenHelper sqlLiteHelper;
+    private static final UriMatcher uriMatcher;
     public static final String AUTHORITY = "com.example.android.test.provider";
-
-    private static final int
-            TABLE_ITEMS = 0;
-
+    private static final int TABLE_ITEMS = 0;
     static {
-        sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        sUriMatcher.addURI(AUTHORITY, TableItems.NAME + "/offset/" + "#", TABLE_ITEMS);
+        uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        uriMatcher.addURI(AUTHORITY, EntriesTableContract.TABLE_NAME + "/offset/" + "#", TABLE_ITEMS);
     }
 
     public static Uri urlForItems(int limit) {
-        return Uri.parse("content://" + AUTHORITY + "/" + TableItems.NAME + "/offset/" + limit);
+        return Uri.parse("content://" + AUTHORITY + "/" + EntriesTableContract.TABLE_NAME + "/offset/" + limit);
     }
 
     @Override
     public boolean onCreate() {
-        mSqliteOpenHelper = new CustomSqliteOpenHelper(getContext());
+        sqlLiteHelper = new EntriesSQLiteOpenHelper(getContext());
         return true;
     }
 
     @Override
     synchronized public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
-        SQLiteDatabase db = mSqliteOpenHelper.getReadableDatabase();
-        SQLiteQueryBuilder sqb;
-        sqb = new SQLiteQueryBuilder();
-        Cursor c = null;
+        SQLiteDatabase db = sqlLiteHelper.getReadableDatabase();
+        SQLiteQueryBuilder queryBuilder;
+        queryBuilder = new SQLiteQueryBuilder();
+        Cursor cursor = null;
         String offset;
 
-        switch (sUriMatcher.match(uri)) {
+        switch (uriMatcher.match(uri)) {
             case TABLE_ITEMS: {
-                sqb.setTables(TableItems.NAME);
+                queryBuilder.setTables(EntriesTableContract.TABLE_NAME);
                 offset = uri.getLastPathSegment();
                 break;
             }
-
             default:
-                throw new IllegalArgumentException("uri not recognized!");
+                throw new IllegalArgumentException("Uri not recognized!");
         }
 
         int intOffset = Integer.parseInt(offset);
 
         String limitArg = intOffset + ", " + 30;
         Log.d(TAG, "query: " + limitArg);
-        c = sqb.query(db, projection, selection, selectionArgs, null, null, sortOrder, limitArg);
+        cursor = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder, limitArg);
 
-        c.setNotificationUri(getContext().getContentResolver(), uri);
-
-        return c;
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+        return cursor;
     }
 
     @Override
@@ -79,21 +72,20 @@ public class RequestProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
         String table = "";
-        switch (sUriMatcher.match(uri)) {
+        switch (uriMatcher.match(uri)) {
             case TABLE_ITEMS: {
-                table = TableItems.NAME;
+                table = EntriesTableContract.TABLE_NAME;
                 break;
             }
         }
 
-        long result = mSqliteOpenHelper.getWritableDatabase().insertWithOnConflict(table, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        long result = sqlLiteHelper.getWritableDatabase().insertWithOnConflict(table, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 
         if (result == -1) {
-            throw new SQLException("insert with conflict!");
+            throw new SQLException("Insert with conflict!");
         }
 
-        Uri retUri = ContentUris.withAppendedId(uri, result);
-        return retUri;
+        return ContentUris.withAppendedId(uri, result);
     }
 
     @Override

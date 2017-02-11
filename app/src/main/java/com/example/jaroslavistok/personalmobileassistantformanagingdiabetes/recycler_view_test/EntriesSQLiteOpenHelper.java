@@ -4,12 +4,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class CustomSqliteOpenHelper extends SQLiteOpenHelper {
+public class EntriesSQLiteOpenHelper extends SQLiteOpenHelper {
 
-    private static final String TAG = "CustomSqliteOpenHelper";
+    private static final String TAG = "EntriesSQLiteOpenHelper";
+    private static final String DATABASE_NAME = "diabetes_manager_db";
 
-    public CustomSqliteOpenHelper(Context context) {
-        super(context, "db.db", null, 1);
+
+    public EntriesSQLiteOpenHelper(Context context) {
+        super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
@@ -19,12 +21,13 @@ public class CustomSqliteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TableItems.CREATE_TABLE);
+        db.execSQL(EntriesTableContract.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(TableItems.DROP_TABLE);
+        db.execSQL(EntriesTableContract.DROP_TABLE);
         onCreate(db);
     }
+
 }

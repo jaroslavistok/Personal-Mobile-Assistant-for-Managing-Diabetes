@@ -5,16 +5,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
+
 public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView textView1;
+    public TextView category;
+    public TextView glucose;
+    public TextView date;
 
     public CustomViewHolder(View itemView) {
         super(itemView);
-        textView1 = (TextView) itemView.findViewById(android.R.id.text1);
+        category = (TextView) itemView.findViewById(R.id.category);
+        glucose = (TextView) itemView.findViewById(R.id.glucose);
+        date = (TextView) itemView.findViewById(R.id.date);
     }
 
-    public void setData(Cursor c) {
-        textView1.setText(c.getString(c.getColumnIndex("text")));
+    public void setData(Cursor cursor) {
+        category.setText(cursor.getString(cursor.getColumnIndex(EntriesTableContract.CATEGORY)));
+        glucose.setText(cursor.getString(cursor.getColumnIndex(EntriesTableContract.GLUCOSE_VALUE)));
+        date.setText(cursor.getString(cursor.getColumnIndex(EntriesTableContract.DATE)));
     }
 }

@@ -22,8 +22,9 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_contracts.DatabaseContracts;
-import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.providers.EntriesContentProvider;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.recycler_view_test.EntriesProvider;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.recycler_view_test.EntriesTableContract;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.recycler_view_test.MainActivity;
 
 import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.LogBookActivity.INSERT_NOTE_TOKEN;
 import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_COOKIE;
@@ -52,7 +53,7 @@ public class AddLogEntry extends AppCompatActivity {
 
                 saveDataToDatabase();
                 finish();
-                startActivity(new Intent(AddLogEntry.this, LogBookActivity.class));
+                startActivity(new Intent(AddLogEntry.this, MainActivity.class));
             }
         });
 
@@ -68,14 +69,17 @@ public class AddLogEntry extends AppCompatActivity {
         String slowInsuline = String.valueOf(this.slowInsuline.getText());
         String note = String.valueOf(this.note.getText());
 
-        Uri entriesContentProviderUri = EntriesContentProvider.CONTENT_URI;
+        Uri entriesContentProviderUri = EntriesProvider.urlForItems(0);
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseContracts.Entry.DATE, date);
-        contentValues.put(DatabaseContracts.Entry.TIME, time);
-        contentValues.put(DatabaseContracts.Entry.GLUCOSE_VALUE, glucose);
-        contentValues.put(DatabaseContracts.Entry.FAST_INSULIN, fastInsuline);
-        contentValues.put(DatabaseContracts.Entry.SLOW_INSULIN, slowInsuline);
-        contentValues.put(DatabaseContracts.Entry.NOTE, note);
+        contentValues.put(EntriesTableContract.DATE, date);
+        contentValues.put(EntriesTableContract.TIME, time);
+        contentValues.put(EntriesTableContract.GLUCOSE_VALUE, glucose);
+        contentValues.put(EntriesTableContract.FAST_INSULIN, fastInsuline);
+        contentValues.put(EntriesTableContract.SLOW_INSULIN, slowInsuline);
+        contentValues.put(EntriesTableContract.NOTE, note);
+        contentValues.put(EntriesTableContract.CATEGORY, "empty");
+        contentValues.put(EntriesTableContract.SYNCHORNIZED, 0);
+
 
         AsyncQueryHandler insertHandler = new AsyncQueryHandler(getContentResolver()) {
             @Override

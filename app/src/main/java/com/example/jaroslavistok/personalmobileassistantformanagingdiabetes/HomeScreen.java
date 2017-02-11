@@ -34,7 +34,6 @@ public class HomeScreen extends AppCompatActivity {
         addLogEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(HomeScreen.this, AddLogEntry.class));
             }
         });
@@ -42,7 +41,6 @@ public class HomeScreen extends AppCompatActivity {
         showDatabaseButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(HomeScreen.this, AlarmActivity.class));
             }
 
@@ -51,7 +49,6 @@ public class HomeScreen extends AppCompatActivity {
         showDataButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(HomeScreen.this, MainActivity.class));
             }
 
@@ -60,7 +57,6 @@ public class HomeScreen extends AppCompatActivity {
         showStatisticsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                finish();
                 startActivity(new Intent(HomeScreen.this, AddLogEntry.class));
             }
         });

@@ -40,8 +40,6 @@ public class EntriesContentProvider extends ContentProvider {
                                                 .build();
 
     public EntriesContentProvider() {
-
-
     }
 
     @Override

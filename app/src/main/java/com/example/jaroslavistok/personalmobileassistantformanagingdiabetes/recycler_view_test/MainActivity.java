@@ -68,21 +68,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private void fillTestElements() {
-        int size = 1000;
-        ContentValues[] cvArray = new ContentValues[size];
-        for (int i = 0; i < cvArray.length; i++) {
-            ContentValues cv = new ContentValues();
-            cv.put(TableItems.TEXT, ("text " + i));
-            cvArray[i] = cv;
+        int size = 1;
+        ContentValues[] listOfContentValues = new ContentValues[size];
+        for (int i = 0; i < listOfContentValues.length; i++) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(EntriesTableContract.DATE, "10.10.2017");
+            contentValues.put(EntriesTableContract.GLUCOSE_VALUE, "10");
+            contentValues.put(EntriesTableContract.CATEGORY, "rano");
+            contentValues.put(EntriesTableContract.FAST_INSULIN, "10");
+            contentValues.put(EntriesTableContract.SLOW_INSULIN, "10");
+            contentValues.put(EntriesTableContract.NOTE, "note");
+            contentValues.put(EntriesTableContract.TIME, "time");
+            contentValues.put(EntriesTableContract.SYNCHORNIZED, 0);
+            listOfContentValues[i] = contentValues;
         }
-
-        getContentResolver().bulkInsert(RequestProvider.urlForItems(0), cvArray);
+        getContentResolver().bulkInsert(EntriesProvider.urlForItems(0), listOfContentValues);
     }
 
     private int getItemsCountLocal() {
         int itemsCount = 0;
 
-        Cursor query = getContentResolver().query(RequestProvider.urlForItems(0), null, null, null, null);
+        Cursor query = getContentResolver().query(EntriesProvider.urlForItems(0), null, null, null, null);
         if (query != null) {
             itemsCount = query.getCount();
             query.close();
@@ -96,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
             case 0:
-                return new CursorLoader(this, RequestProvider.urlForItems(offset * page), null, null, null, null);
+                return new CursorLoader(this, EntriesProvider.urlForItems(offset * page), null, null, null, null);
             default:
                 throw new IllegalArgumentException("no id handled!");
         }
@@ -113,11 +119,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Cursor cursor = ((CustomCursorRecyclerViewAdapter) mRecyclerView.getAdapter()).getCursor();
 
                 //fill all exisitng in adapter
-                MatrixCursor mx = new MatrixCursor(TableItems.Columns);
-                fillMx(cursor, mx);
+                MatrixCursor mx = new MatrixCursor(EntriesTableContract.Columns);
+                fillMatrixCursor(cursor, mx);
 
                 //fill with additional result
-                fillMx(data, mx);
+                fillMatrixCursor(data, mx);
 
                 ((CustomCursorRecyclerViewAdapter) mRecyclerView.getAdapter()).swapCursor(mx);
 
@@ -131,21 +137,28 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                 break;
             default:
-                throw new IllegalArgumentException("no loader id handled!");
+                throw new IllegalArgumentException("No loader id handled!");
         }
     }
 
     private Handler handlerToWait = new Handler();
 
-    private void fillMx(Cursor data, MatrixCursor mx) {
+    private void fillMatrixCursor(Cursor data, MatrixCursor matrixCursor) {
         if (data == null)
             return;
 
         data.moveToPosition(-1);
         while (data.moveToNext()) {
-            mx.addRow(new Object[]{
-                    data.getString(data.getColumnIndex(TableItems._ID)),
-                    data.getString(data.getColumnIndex(TableItems.TEXT))
+            matrixCursor.addRow(new Object[]{
+                    data.getString(data.getColumnIndex(EntriesTableContract._ID)),
+                    data.getString(data.getColumnIndex(EntriesTableContract.GLUCOSE_VALUE)),
+                    data.getString(data.getColumnIndex(EntriesTableContract.CATEGORY)),
+                    data.getString(data.getColumnIndex(EntriesTableContract.DATE)),
+                    data.getString(data.getColumnIndex(EntriesTableContract.TIME)),
+                    data.getString(data.getColumnIndex(EntriesTableContract.SLOW_INSULIN)),
+                    data.getString(data.getColumnIndex(EntriesTableContract.FAST_INSULIN)),
+                    data.getString(data.getColumnIndex(EntriesTableContract.NOTE)),
+                    data.getString(data.getColumnIndex(EntriesTableContract.SYNCHORNIZED)),
             });
         }
     }

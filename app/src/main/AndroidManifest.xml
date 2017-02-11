@@ -20,7 +20,7 @@
             android:enabled="true"
             android:exported="false" />
         <provider
-            android:name=".recycler_view_test.RequestProvider"
+            android:name=".recycler_view_test.EntriesProvider"
             android:authorities="com.example.android.test.provider"
             android:enabled="true"
             android:exported="false" />
