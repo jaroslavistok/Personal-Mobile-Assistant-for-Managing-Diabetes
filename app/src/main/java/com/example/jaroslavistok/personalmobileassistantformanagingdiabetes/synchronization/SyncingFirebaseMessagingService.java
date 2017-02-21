@@ -2,6 +2,7 @@ package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.syn
 
 import android.util.Log;
 
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.alarm_example.SampleAlarmReceiver;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -11,6 +12,9 @@ public class SyncingFirebaseMessagingService extends FirebaseMessagingService {
         // ..
         Log.w("received", "on message received");
         String logType = "w";
+
+        SampleAlarmReceiver alarm = new SampleAlarmReceiver();
+        alarm.setAlarm(this);
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ

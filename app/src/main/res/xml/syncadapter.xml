@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sync-adapter
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:contentAuthority="com.example.android.datasync.provider"
+    android:contentAuthority="com.example.android.test.provider"
     android:accountType="example.com"
     android:userVisible="true"
     android:supportsUploading="true"

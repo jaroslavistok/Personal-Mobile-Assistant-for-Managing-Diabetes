@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
 
@@ -62,6 +64,7 @@ public class SampleSchedulingService extends IntentService {
         // indicates the presence of a doodle. Post a "Doodle Alert" notification.
         if (result.indexOf(SEARCH_STRING) != -1) {
             sendNotification(getString(R.string.doodle_found));
+
             Log.i(TAG, "Found doodle!!");
         } else {
             sendNotification(getString(R.string.no_doodle));
@@ -71,11 +74,19 @@ public class SampleSchedulingService extends IntentService {
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
         r.play();
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrator.vibrate(100);
+
+        Toast.makeText(getApplicationContext(), "I'm running", Toast.LENGTH_SHORT).show();
+
 
         // Release the wake lock provided by the BroadcastReceiver.
         SampleAlarmReceiver.completeWakefulIntent(intent);
         // END_INCLUDE(service_onhandle)
     }
+
+
+
 
     private void sendNotification(String msg) {
         mNotificationManager = (NotificationManager)
@@ -84,13 +95,14 @@ public class SampleSchedulingService extends IntentService {
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, AlarmActivity.class), 0);
 
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle(getString(R.string.doodle_alert))
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
-                        .setContentText(msg);
+                        .setContentText(msg).setFullScreenIntent(contentIntent, true);
 
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());

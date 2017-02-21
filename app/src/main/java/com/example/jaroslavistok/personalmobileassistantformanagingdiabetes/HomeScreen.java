@@ -8,7 +8,8 @@ import android.widget.ImageButton;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.alarm_example.AlarmActivity;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_helpers.EntriesDatabaseHelper;
-import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.recycler_view_test.MainActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -23,7 +24,11 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
 
         EntriesDatabaseHelper entriesDatabaseHelper = new EntriesDatabaseHelper(this);
-        
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+        myRef.setValue("Hello, World!");
+
 
         addLogEntryButton =  (ImageButton) findViewById(R.id.addButton);
         showDatabaseButton = (ImageButton) findViewById(R.id.showDatabaseButton);
@@ -49,7 +54,7 @@ public class HomeScreen extends AppCompatActivity {
         showDataButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeScreen.this, MainActivity.class));
+                startActivity(new Intent(HomeScreen.this, AlarmActivity.class));
             }
 
         });

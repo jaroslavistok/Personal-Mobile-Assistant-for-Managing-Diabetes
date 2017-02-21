@@ -74,6 +74,7 @@ if (isset($_POST['sendrequest'])) {
 
     <!-- Custom styles for this template -->
     <link href="../style.css" rel="stylesheet">
+
 </head>
 
 <body>

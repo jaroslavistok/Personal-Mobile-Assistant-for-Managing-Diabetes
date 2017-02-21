@@ -2,11 +2,7 @@ package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.ret
 
 import android.content.ContentProviderClient;
 import android.database.Cursor;
-import android.os.RemoteException;
 import android.util.Log;
-
-import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.database_contracts.DatabaseContracts;
-import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.providers.EntriesContentProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +13,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_PROJECTION;
-import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_SELECTION;
-import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_SELECTION_ARGS;
-import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_SORT_ORDER;
-
 
 public class RestClient {
     private ContentProviderClient contentProviderClient;
 
-    private static final String BASE_URL = "http://davinci.fmph.uniba.sk/~istok7/";
+    private static final String BASE_URL = "http://diamanager.org/";
 
     private ApiService apiService;
 
@@ -36,12 +27,12 @@ public class RestClient {
 
     public void getDataFromContentProvider(){
         Cursor cursor = null;
-        try {
-            cursor = this.contentProviderClient.query(EntriesContentProvider.CONTENT_URI, NO_PROJECTION,
-                    NO_SELECTION, NO_SELECTION_ARGS, NO_SORT_ORDER);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            cursor = this.contentProviderClient.query(EntriesProvider.urlForItems(0), NO_PROJECTION,
+//                    NO_SELECTION, NO_SELECTION_ARGS, NO_SORT_ORDER);
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
 
         glucoses = new ArrayList<>();
         dateTimes = new ArrayList<>();
@@ -54,7 +45,7 @@ public class RestClient {
             while (!cursor.isAfterLast()) {
 //                glucoses.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.GLUCOSE)));
 //                dateTimes.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.TIMESTAMP)));
-                categories.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.CATEGORY)));
+//                categories.add(cursor.getString(cursor.getColumnIndex(DatabaseContracts.Entry.CATEGORY)));
                 cursor.moveToNext();
             }
 
@@ -74,12 +65,12 @@ public class RestClient {
 
     public void synchronizeData() {
 
-        for(int i = 0; i < glucoses.size(); i++){
+        for(int i = 0; i < 1; i++){
             EntryData entry = new EntryData();
-            entry.setGlucose(glucoses.get(i));
-            entry.setDateTime(dateTimes.get(i));
-            entry.setCategory(categories.get(i));
-            Log.w("dd", categories.get(i));
+            entry.setGlucose("4");
+            entry.setDateTime("test");
+            entry.setCategory("test");
+            Log.w("dd", "logging");
 
             Call<String> uploadDataCall = apiService.postWithJSON(entry);
 

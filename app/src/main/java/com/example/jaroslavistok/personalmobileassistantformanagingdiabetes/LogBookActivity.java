@@ -49,7 +49,6 @@ public class LogBookActivity extends AppCompatActivity implements  android.app.L
     public static final long SYNC_INTERVAL =
             SYNC_INTERVAL_IN_MINUTES *
                     SECONDS_PER_MINUTE;
-
     private static final int NOTES_LOADER_ID = 0;
 
     Account mAccount;
@@ -81,8 +80,6 @@ public class LogBookActivity extends AppCompatActivity implements  android.app.L
         Log.w("Recycler view shown", "Recycler view show");
 
         getLoaderManager().initLoader(NOTES_LOADER_ID, Bundle.EMPTY, this);
-
-
         mAccount = CreateSyncAccount(this);
 
         Log.w("Warning", "After content resolver");

@@ -17,6 +17,7 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
         // BEGIN_INCLUDE(alarm_onreceive)
         /*
          * If your receiver intent includes extras that need to be passed along to the
@@ -52,10 +53,10 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
         alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.setTimeInMillis(System.currentTimeMillis());
         // Set the alarm's trigger time to 8:30 a.m.
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 30);
+//        calendar.set(Calendar.HOUR_OF_DAY, 8);
+//        calendar.set(Calendar.MINUTE, 30);
 
         /*
          * If you don't have precise time requirements, use an inexact repeating alarm
@@ -102,7 +103,18 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
 //                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
 //                PackageManager.DONT_KILL_APP);
 
-        alarmMgr.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 10*1000, alarmIntent);
+
+        //calendar.setTimeInMillis(System.currentTimeMillis());
+        //calendar.set(Calendar.HOUR_OF_DAY, 22);
+        //calendar.set(Calendar.MINUTE, 10);
+
+       // alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmIntent);
+
+        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() +
+                 60*1000, alarmIntent);
+
+
+
     }
     // END_INCLUDE(set_alarm)
 
