@@ -24,8 +24,6 @@ import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.providers.EntriesContentProvider;
 
 import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_COOKIE;
-import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_CURSOR;
-import static com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.utils.DefaultsConstantsValues.NO_FLAGS;
 
 public class LogBookActivity extends AppCompatActivity implements  android.app.LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -55,8 +53,8 @@ public class LogBookActivity extends AppCompatActivity implements  android.app.L
 
     private ListAdapter initializeEntriesAdapter(){
         String[] from = {DatabaseContracts.Entry.DATE, DatabaseContracts.Entry.CATEGORY, DatabaseContracts.Entry.GLUCOSE_VALUE};
-        int[] to = {R.id.date, R.id.category, R.id.date};
-        entriesViewAdapter = new SimpleCursorAdapter(this, R.layout.row_layout, NO_CURSOR, from, to, NO_FLAGS);
+//        int[] to = {R.id.date, R.id.category, R.id.date};
+//        entriesViewAdapter = new SimpleCursorAdapter(this, R.layout.record, NO_CURSOR, from, to, NO_FLAGS);
         return entriesViewAdapter;
     }
 

@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    >
+
+    <TextView
+        android:id="@+id/datetime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginTop="10dp" />
+
+
+    <TextView
+        android:id="@+id/glucose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/datetime"
+        android:text="Hodnota glykémie: "
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/fast_insuline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/glucose"
+        android:text="Rýchly inzulín: "
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/slow_insuline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fast_insuline"
+        android:text="Pomalý inzulín: "
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/carbs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slow_insuline"
+        android:text="Počet sacharidových jednotiek: "
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/carbs"
+        android:text="Poznámka: "
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="category"
+        android:layout_marginRight="51dp"
+        android:layout_alignBaseline="@+id/datetime"
+        android:layout_alignBottom="@+id/datetime"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="51dp" />
+
+
+</RelativeLayout>

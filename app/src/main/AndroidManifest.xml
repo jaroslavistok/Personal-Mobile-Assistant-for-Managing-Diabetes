@@ -23,7 +23,7 @@
 
         <activity
             android:name=".LogBookActivity"
-            android:label="@string/title_activity_main"
+            android:label="dedeid"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".AddLogEntry"
@@ -88,7 +88,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -110,10 +109,6 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity
-            android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

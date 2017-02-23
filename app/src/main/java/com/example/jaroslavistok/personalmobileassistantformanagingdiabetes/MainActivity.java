@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -20,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,16 +52,20 @@ public class MainActivity extends AppCompatActivity {
 
             // Set up ListView
             final ListView listView = (ListView) findViewById(R.id.listView);
-            final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
-            listView.setAdapter(adapter);
+
+            ArrayList<Record> recordList = new ArrayList<>();
+            final RecordsAdapter recordsAdapter = new RecordsAdapter(this, recordList);
+
+//            final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
+            listView.setAdapter(recordsAdapter);
 
 //            // Add items via the Button and EditText at the bottom of the view.
             final EditText text = (EditText) findViewById(R.id.todoText);
             final Button button = (Button) findViewById(R.id.addButton);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Item item = new Item(text.getText().toString());
-                    mDatabase.child("users").child(mUserId).child("items").push().child("title").setValue(item);
+                    Record record = new Record(text.getText().toString());
+                    mDatabase.child("users").child(mUserId).child("items").push().child("title").setValue(record);
                     text.setText("");
                 }
             });
@@ -69,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             mDatabase.child("users").child(mUserId).child("items").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    adapter.add((String) dataSnapshot.child("title").getValue());
+                    recordsAdapter.add(new Record(dataSnapshot.child("title").getValue().toString()));
                 }
 
                 @Override
@@ -79,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    adapter.remove((String) dataSnapshot.child("title").getValue());
+                    recordsAdapter.remove(new Record(dataSnapshot.child("title").getValue().toString()));
                 }
 
                 @Override

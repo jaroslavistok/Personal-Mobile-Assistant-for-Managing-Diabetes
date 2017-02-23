@@ -6,8 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
-
 
 public class LogBookRowViewHolder extends RecyclerView.ViewHolder {
 
@@ -19,10 +17,10 @@ public class LogBookRowViewHolder extends RecyclerView.ViewHolder {
 
     public LogBookRowViewHolder(View itemView) {
         super(itemView);
-        cardView = (CardView) itemView.findViewById(R.id.card_view);
-        category = (TextView) itemView.findViewById(R.id.category);
-        glucose = (TextView) itemView.findViewById(R.id.glucose);
-        date = (TextView) itemView.findViewById(R.id.date);
+//        cardView = (CardView) itemView.findViewById(R.id.card_view);
+//        category = (TextView) itemView.findViewById(R.id.category);
+//        glucose = (TextView) itemView.findViewById(R.id.glucose);
+//        date = (TextView) itemView.findViewById(R.id.date);
     }
 
     public void setData(Cursor data) {
