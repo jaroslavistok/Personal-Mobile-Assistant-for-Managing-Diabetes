@@ -29,7 +29,7 @@ public class LogBookAdapter extends CursorRecyclerViewAdapter<LogBookRowViewHold
 
     @Override
     public LogBookRowViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.record, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.record_row, parent, false);
         LogBookRowViewHolder viewHolder = new LogBookRowViewHolder(view);
         return viewHolder;
     }

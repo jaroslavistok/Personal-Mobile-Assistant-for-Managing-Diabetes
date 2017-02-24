@@ -98,7 +98,7 @@ public class SampleSchedulingService extends IntentService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setSmallIcon(R.drawable.add_button_image)
                         .setContentTitle(getString(R.string.doodle_alert))
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))

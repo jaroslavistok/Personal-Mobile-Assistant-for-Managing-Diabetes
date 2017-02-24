@@ -22,7 +22,7 @@ public class RecordsAdapter extends ArrayAdapter<Record> {
     }
 
     public RecordsAdapter(Context context, ArrayList<Record> users) {
-        super(context, R.layout.record, users);
+        super(context, R.layout.record_row, users);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class RecordsAdapter extends ArrayAdapter<Record> {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.record, parent, false);
+            convertView = inflater.inflate(R.layout.record_row, parent, false);
             viewHolder.dateTime = (TextView) convertView.findViewById(R.id.datetime);
             viewHolder.glucoseValue = (TextView) convertView.findViewById(R.id.glucose);
             viewHolder.category = (TextView) convertView.findViewById(R.id.category);

@@ -6,5 +6,5 @@ import retrofit2.http.POST;
 
 public interface ApiService {
     @POST("request-handler")
-    Call<String> postWithJSON(@Body EntryData toUpload);
+    Call<String> postWithJSON(@Body Entrydata toUpload);
 }

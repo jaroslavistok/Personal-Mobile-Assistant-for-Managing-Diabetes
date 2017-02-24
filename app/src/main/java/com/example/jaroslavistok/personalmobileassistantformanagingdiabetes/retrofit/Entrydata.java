@@ -1,6 +1,6 @@
 package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.retrofit;
 
-public class EntryData {
+public class Entrydata {
     private String category;
     private String glucose;
 
@@ -14,13 +14,13 @@ public class EntryData {
 
     private String dateTime;
 
-    public EntryData(String glucose, String dateTime, String category){
+    public Entrydata(String glucose, String dateTime, String category){
         this.category = category;
         this.glucose = glucose;
         this.dateTime = dateTime;
     }
 
-    public EntryData(){
+    public Entrydata(){
         this.glucose = "";
         this.dateTime = "";
         this.category = "";

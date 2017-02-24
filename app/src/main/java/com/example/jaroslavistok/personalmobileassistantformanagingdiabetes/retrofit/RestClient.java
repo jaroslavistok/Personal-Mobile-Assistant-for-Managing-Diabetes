@@ -66,7 +66,7 @@ public class RestClient {
     public void synchronizeData() {
 
         for(int i = 0; i < 1; i++){
-            EntryData entry = new EntryData();
+            Entrydata entry = new Entrydata();
             entry.setGlucose("4");
             entry.setDateTime("test");
             entry.setCategory("test");

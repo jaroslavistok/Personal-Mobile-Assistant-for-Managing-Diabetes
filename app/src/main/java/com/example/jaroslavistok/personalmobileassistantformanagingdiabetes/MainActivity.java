@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             final Button button = (Button) findViewById(R.id.addButton);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Record record = new Record(text.getText().toString());
+                    Record record = new Record();
                     mDatabase.child("users").child(mUserId).child("items").push().child("title").setValue(record);
                     text.setText("");
                 }
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             mDatabase.child("users").child(mUserId).child("items").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    recordsAdapter.add(new Record(dataSnapshot.child("title").getValue().toString()));
+                    recordsAdapter.add(new Record());
                 }
 
                 @Override
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    recordsAdapter.remove(new Record(dataSnapshot.child("title").getValue().toString()));
+                    recordsAdapter.remove(new Record());
                 }
 
                 @Override
