@@ -82,7 +82,7 @@ if (isset($_POST['sendrequest'])) {
 <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
     <a class="navbar-brand" href="#">Bakalárska práca</a>
     <ul class="nav navbar-nav">
-        <li class="nav-item active">
+        <li class="nav-record active">
             <a class="nav-link" href="#">Domov<span class="sr-only">(current)</span></a>
         </li>
     </ul>
@@ -109,12 +109,12 @@ if (isset($_POST['sendrequest'])) {
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($result as $item): ?>
+        <?php foreach ($result as $record): ?>
         <tr>
-            <td><?= $item['glucose_data_id'] ?></td>
-            <td><?= $item['category'] ?></td>
-            <td><?= $item['glucose_value'] ?></td>
-            <td><?= $item['date'] ?></td>
+            <td><?= $record['glucose_data_id'] ?></td>
+            <td><?= $record['category'] ?></td>
+            <td><?= $record['glucose_value'] ?></td>
+            <td><?= $record['date'] ?></td>
         </tr>
 
         <?php endforeach; ?>
