@@ -54,6 +54,18 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
+        android:layout_marginTop="29dp"
+        android:id="@+id/glucose_text_field"
+        android:hint="Cukor"
+        android:layout_below="@+id/time_text_field"
+        android:layout_alignLeft="@+id/time_text_field"
+        android:layout_alignStart="@+id/time_text_field" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
         android:layout_below="@+id/glucose_text_field"
         android:layout_alignRight="@+id/glucose_text_field"
         android:layout_alignEnd="@+id/glucose_text_field"
@@ -85,15 +97,13 @@
         android:id="@+id/note_text_field"
         android:hint="Poznámka" />
 
-    <EditText
+    <Spinner
+
+        android:id="@+id/categories_spinner"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:layout_marginTop="29dp"
-        android:id="@+id/glucose_text_field"
-        android:hint="Cukor"
-        android:layout_below="@+id/time_text_field"
-        android:layout_alignLeft="@+id/time_text_field"
-        android:layout_alignStart="@+id/time_text_field" />
+        android:layout_height="wrap_content">
+
+    </Spinner>
+
+
 </RelativeLayout>

@@ -13,9 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AddLogEntry extends AppCompatActivity {
     private EditText date;
@@ -23,7 +31,24 @@ public class AddLogEntry extends AppCompatActivity {
     private EditText glucose;
     private EditText fastInsuline;
     private EditText slowInsuline;
+    private Spinner categoriesSpinner;
     private EditText note;
+
+    private String selectedCategory = "";
+
+
+    class SpinnerSelection implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            selectedCategory = ((CharSequence)adapterView.getSelectedItem()).toString();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +68,45 @@ public class AddLogEntry extends AppCompatActivity {
             }
         });
 
+
+        initializeCategoriesSpinner();
         initializeWidgets();
+
         setOnFocusListenersForDateAndTime();
+
+
+
+    }
+
+    private void initializeCategoriesSpinner() {
+        categoriesSpinner = (Spinner) findViewById(R.id.categories_spinner);
+        categoriesSpinner.setOnItemSelectedListener(new SpinnerSelection());
+        ArrayAdapter<CharSequence> categoriesSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
+        categoriesSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        categoriesSpinner.setAdapter(categoriesSpinnerAdapter);
     }
 
     private void saveDataToDatabase() {
-        String date = String.valueOf(this.date.getText());
-        String time = String.valueOf(this.time.getText());
-        String glucose = String.valueOf(this.glucose.getText());
-        String fastInsuline = String.valueOf(this.fastInsuline.getText());
-        String slowInsuline = String.valueOf(this.slowInsuline.getText());
-        String note = String.valueOf(this.note.getText());
+        Record record = new Record();
+        record.setCarbs("tmp");
+        record.setDatetime(date.getText() + " " + time.getText());
+        record.setCategory(selectedCategory);
+        record.setFastInsuline(fastInsuline.getText().toString());
+        record.setSlowInsuline(slowInsuline.getText().toString());
+        record.setNote(note.getText().toString());
+        record.setGlucoseValue(glucose.getText().toString());
+
+        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        String mUserId  = mFirebaseUser.getUid();
+
+        DatabaseReference firebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth authentication = FirebaseAuth.getInstance();
+        FirebaseUser user = authentication.getCurrentUser();
+        firebaseDatabaseReference.child("users").child(mUserId).child("items").push().setValue(record);
+
+
     }
 
     private void initializeWidgets() {

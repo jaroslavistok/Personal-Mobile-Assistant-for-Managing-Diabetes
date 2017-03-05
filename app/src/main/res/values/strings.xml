@@ -40,5 +40,12 @@
     <string name="add_item">Add New Item</string>
     <string name="action_logout">Logout</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_reminders">RemindersActivity</string>
+    <string name="reminder_name">Nazov pripomienky</string>
+    <string name="reminder_category">Kategoria pripomienky</string>
+    <string name="reminer_datetime">Vyber cas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

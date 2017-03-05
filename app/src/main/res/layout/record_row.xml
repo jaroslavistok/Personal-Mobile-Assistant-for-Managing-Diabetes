@@ -50,7 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/carbs"
         android:text="Poznámka: "
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:id="@+id/category"
@@ -58,11 +59,32 @@
         android:layout_height="wrap_content"
         android:text="category"
         android:layout_marginRight="51dp"
+        android:layout_marginEnd="51dp"
         android:layout_alignBaseline="@+id/datetime"
         android:layout_alignBottom="@+id/datetime"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="51dp" />
+         />
+
+    <Button
+        android:text="Odstrániť"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/glucose"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="29dp"
+        android:layout_marginEnd="29dp"
+        android:id="@+id/delete_record" />
+
+    <Button
+        android:text="Upraviť"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slow_insuline"
+        android:layout_alignRight="@+id/delete_record"
+        android:layout_alignEnd="@+id/delete_record"
+        android:id="@+id/update_record" />
 
 
 </RelativeLayout>

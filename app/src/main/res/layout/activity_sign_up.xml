@@ -40,4 +40,13 @@
         android:layout_below="@+id/passwordField"
         android:text="@string/sign_up_button_label" />
 
+    <Button
+        android:text="Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signupButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:id="@+id/button2" />
+
 </RelativeLayout>

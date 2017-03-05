@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.alarm_example.AlarmActivity">
+    tools:context="com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.RemindersActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,8 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_alarm"
-        android:id="@+id/include" />
+    <include layout="@layout/content_reminders" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -32,13 +30,8 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="134dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:text="Button"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="center_vertical|center_horizontal" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </android.support.design.widget.CoordinatorLayout>

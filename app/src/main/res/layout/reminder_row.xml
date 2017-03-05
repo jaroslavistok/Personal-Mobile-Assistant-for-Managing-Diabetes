@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/reminder_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="14dp"
+        android:text="Nazov:" />
+
+    <TextView
+        android:id="@+id/reminder_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/reminder_name"
+        android:layout_alignStart="@+id/reminder_name"
+        android:layout_below="@+id/reminder_name"
+        android:layout_marginTop="10dp"
+        android:text="Kategoria:" />
+
+    <TextView
+        android:id="@+id/alarm_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/reminder_category"
+        android:layout_alignStart="@+id/reminder_category"
+        android:layout_below="@+id/reminder_category"
+        android:layout_marginTop="12dp"
+        android:text="Time:" />
+
+    <Switch
+        android:id="@+id/reminder_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/reminder_name"
+        android:layout_marginLeft="49dp"
+        android:layout_marginStart="49dp"
+        android:layout_toEndOf="@+id/reminder_category"
+        android:layout_toRightOf="@+id/reminder_category" />
+</RelativeLayout>
