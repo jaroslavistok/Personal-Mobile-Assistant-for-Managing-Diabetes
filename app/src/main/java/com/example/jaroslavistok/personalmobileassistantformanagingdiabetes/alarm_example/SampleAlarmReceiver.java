@@ -2,17 +2,20 @@ package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.ala
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.SystemClock;
 import android.support.v4.content.WakefulBroadcastReceiver;
+
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.receivers.BootReceiver;
 
 import java.util.Calendar;
 
 public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
-    // The app's AlarmManager, which provides access to the system alarm services.
+
     private AlarmManager alarmMgr;
-    // The pending intent that is triggered when the alarm fires.
     private PendingIntent alarmIntent;
 
     @Override
@@ -52,7 +55,27 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
         Intent intent = new Intent(context, SampleAlarmReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
-        Calendar calendar = Calendar.getInstance();
+        /*
+        *AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+ArrayList<PendingIntent> intentArray = new ArrayList<PendingIntent>();
+
+for(i = 0; i < 10; ++i)
+{
+   Intent intent = new Intent(context, OnAlarmReceiver.class);
+   // Loop counter `i` is used as a `requestCode`
+   PendingIntent pendingIntent = PendingIntent.getBroadcast(context, i, intent, 0);
+   // Single alarms in 1, 2, ..., 10 minutes (in `i` minutes)
+   mgrAlarm.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + 60000 * i,
+                pendingIntent);
+
+   intentArray.add(pendingIntent);
+}
+        *
+        * */
+
+
+//        Calendar calendar = Calendar.getInstance();
 //        calendar.setTimeInMillis(System.currentTimeMillis());
         // Set the alarm's trigger time to 8:30 a.m.
 //        calendar.set(Calendar.HOUR_OF_DAY, 8);
@@ -110,12 +133,56 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
 
        // alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmIntent);
 
+
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 15);
+
+
+        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
+
         alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() +
                  60*1000, alarmIntent);
 
 
+        ComponentName receiver = new ComponentName(context, BootReceiver.class);
+        PackageManager pm = context.getPackageManager();
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+
+
+        // TODO to disable this
+        //PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
 
     }
+
+    public void setAlarmAtTime(Context context, int hours, int minutes){
+        alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, SampleAlarmReceiver.class);
+        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 15);
+
+        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmIntent);
+
+    }
+
+    public void setUpAlarmsOnBoot(Context context){
+
+    }
+
+
     // END_INCLUDE(set_alarm)
 
     /**

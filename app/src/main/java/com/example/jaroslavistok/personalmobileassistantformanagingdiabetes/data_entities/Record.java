@@ -1,4 +1,4 @@
-package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes;
+package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities;
 
 
 public class Record {

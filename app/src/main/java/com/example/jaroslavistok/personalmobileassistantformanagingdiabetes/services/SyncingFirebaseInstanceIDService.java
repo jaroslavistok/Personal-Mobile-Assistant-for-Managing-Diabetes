@@ -1,13 +1,9 @@
-package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.synchronization;
+package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.services;
 
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-
-/**
- * Created by jaroslavistok on 04/01/2017.
- */
 
 public class SyncingFirebaseInstanceIDService extends FirebaseInstanceIdService {
 

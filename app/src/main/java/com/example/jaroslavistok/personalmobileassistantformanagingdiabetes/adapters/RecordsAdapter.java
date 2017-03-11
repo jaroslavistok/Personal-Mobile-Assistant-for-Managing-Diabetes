@@ -1,4 +1,4 @@
-package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes;
+package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Record;
 
 import java.util.ArrayList;
 

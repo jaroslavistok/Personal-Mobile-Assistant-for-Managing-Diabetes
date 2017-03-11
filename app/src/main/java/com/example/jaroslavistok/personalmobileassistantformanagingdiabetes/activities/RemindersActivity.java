@@ -1,4 +1,4 @@
-package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes;
+package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
 
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.adapters.RemindersAdapter;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Reminder;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.fragments.ReminderFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -43,6 +47,9 @@ public class RemindersActivity extends AppCompatActivity {
 
             }
         });
+
+
+
 
 
 
@@ -88,6 +95,7 @@ public class RemindersActivity extends AppCompatActivity {
 
             }
         });
+
 
     }
 

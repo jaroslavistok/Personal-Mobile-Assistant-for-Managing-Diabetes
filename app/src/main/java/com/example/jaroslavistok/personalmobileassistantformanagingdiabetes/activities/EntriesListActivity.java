@@ -1,4 +1,4 @@
-package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes;
+package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Record;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.adapters.RecordsAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -19,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class EntriesListActivity extends AppCompatActivity {
 
 
     private String mUserId;

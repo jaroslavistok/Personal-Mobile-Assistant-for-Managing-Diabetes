@@ -1,4 +1,4 @@
-package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes;
+package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class HomeScreen extends AppCompatActivity {
+public class HomeScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +36,14 @@ public class HomeScreen extends AppCompatActivity {
             addLogEntryButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(HomeScreen.this, AddLogEntry.class));
+                    startActivity(new Intent(HomeScreenActivity.this, AddLogEntryActivity.class));
                 }
             });
 
             showDatabaseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(HomeScreen.this, MainActivity.class));
+                    startActivity(new Intent(HomeScreenActivity.this, EntriesListActivity.class));
                 }
 
             });
@@ -50,7 +51,7 @@ public class HomeScreen extends AppCompatActivity {
             showDataButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(HomeScreen.this, RemindersActivity.class));
+                    startActivity(new Intent(HomeScreenActivity.this, RemindersActivity.class));
                 }
 
             });
@@ -58,7 +59,7 @@ public class HomeScreen extends AppCompatActivity {
             showStatisticsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(HomeScreen.this, AddLogEntry.class));
+                    startActivity(new Intent(HomeScreenActivity.this, AddLogEntryActivity.class));
                 }
             });
 

@@ -1,6 +1,6 @@
-package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes;
+package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities;
 
-class Reminder {
+public class Reminder {
 
     private String name;
     private String category;

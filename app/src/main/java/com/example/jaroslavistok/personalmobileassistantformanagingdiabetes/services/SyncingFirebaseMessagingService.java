@@ -1,4 +1,4 @@
-package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.synchronization;
+package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.services;
 
 import android.util.Log;
 
