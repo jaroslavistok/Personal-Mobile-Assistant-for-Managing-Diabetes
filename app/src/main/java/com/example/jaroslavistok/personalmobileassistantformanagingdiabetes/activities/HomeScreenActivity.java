@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.DiabetesApplication;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Reminder;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.managers.AlarmsManager;
@@ -79,11 +80,23 @@ public class HomeScreenActivity extends AppCompatActivity {
     protected void onStop(){
         super.onStop();
         auth.removeAuthStateListener(firebaseAuthListener);
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if (DiabetesApplication.getInstance().isRinging){
+            startActivity(AlarmNotificationActivity.getCurrentRingingActivityIntent());
+        }
 
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if (DiabetesApplication.getInstance().isRinging){
+            startActivity(AlarmNotificationActivity.getCurrentRingingActivityIntent());
+        }
 
         if (!alreadyCalled) {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -134,7 +147,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             showStatisticsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(HomeScreenActivity.this, AlarmNotificationActivity.class));
+                    startActivity(new Intent(HomeScreenActivity.this, GraphViewExampleActivity.class));
                 }
             });
 
@@ -170,23 +183,35 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     private void setUpListenerForSettingAlarms() {
+
+
         databaseReference.child("users").child(AlarmsManager.currentUserId).child("reminders").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.exists()) {
                     Reminder reminder = dataSnapshot.getValue(Reminder.class);
+
                     String parsedTime[] = reminder.getAlarmTime().split(":");
                     int hour = Integer.valueOf(parsedTime[0]);
                     int minute = Integer.valueOf(parsedTime[1]);
 
-                    Calendar calendar = Calendar.getInstance();
+                    java.util.Calendar calendar = java.util.Calendar.getInstance();
+                    Calendar now = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, hour);
-                    calendar.set(Calendar.MINUTE, minute);
+                    calendar.set(java.util.Calendar.HOUR_OF_DAY, hour);
+                    calendar.set(java.util.Calendar.MINUTE, minute);
+
+                    long alarmMilis = 0;
+
+                    if(calendar.getTimeInMillis() <= now.getTimeInMillis())
+                        alarmMilis = calendar.getTimeInMillis() + (AlarmManager.INTERVAL_DAY + 1);
+                    else
+                        alarmMilis = calendar.getTimeInMillis();
+
 
                     if (reminder.isActive()) {
                         Intent intent = new Intent(HomeScreenActivity.this, SampleAlarmReceiver.class);
-                        AlarmsManager.addAlarm(HomeScreenActivity.this, intent, Integer.valueOf(reminder.getId()), calendar.getTimeInMillis());
+                        AlarmsManager.addAlarm(HomeScreenActivity.this, intent, Integer.valueOf(reminder.getId()), alarmMilis);
                     }
                 }
             }
@@ -200,16 +225,22 @@ public class HomeScreenActivity extends AppCompatActivity {
                     int hour = Integer.valueOf(parsedTime[0]);
                     int minute = Integer.valueOf(parsedTime[1]);
 
-                    Calendar calendar = Calendar.getInstance();
+                    java.util.Calendar calendar = java.util.Calendar.getInstance();
+                    Calendar now = Calendar.getInstance();
+
                     calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, hour);
-                    calendar.set(Calendar.MINUTE, minute);
-                    calendar.set(Calendar.SECOND, 1);
+                    calendar.set(java.util.Calendar.HOUR_OF_DAY, hour);
+                    calendar.set(java.util.Calendar.MINUTE, minute);
+                    long alarmMilis = 0;
+                    if(calendar.getTimeInMillis() <= now.getTimeInMillis())
+                        alarmMilis = calendar.getTimeInMillis() + (AlarmManager.INTERVAL_DAY + 1);
+                    else
+                        alarmMilis = calendar.getTimeInMillis();
 
                     Intent intent = new Intent(HomeScreenActivity.this, SampleAlarmReceiver.class);
                     if (reminder.isActive()) {
                         AlarmsManager.cancelAlarm(HomeScreenActivity.this, intent, Integer.valueOf(reminder.getId()));
-                        AlarmsManager.addAlarm(HomeScreenActivity.this, intent, Integer.valueOf(reminder.getId()), calendar.getTimeInMillis());
+                        AlarmsManager.addAlarm(HomeScreenActivity.this, intent, Integer.valueOf(reminder.getId()), alarmMilis);
                     } else {
                         AlarmsManager.cancelAlarm(HomeScreenActivity.this, intent, Integer.valueOf(reminder.getId()));
                     }

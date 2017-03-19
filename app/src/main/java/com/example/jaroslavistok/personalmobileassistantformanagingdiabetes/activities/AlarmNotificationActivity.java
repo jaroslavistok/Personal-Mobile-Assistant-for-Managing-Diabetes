@@ -13,13 +13,24 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.DiabetesApplication;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.managers.AlarmsManager;
 
 public class AlarmNotificationActivity extends AppCompatActivity {
+
+    public static Intent currentRingingActivityIntent;
+
+    public static Intent getCurrentRingingActivityIntent(){
+        return currentRingingActivityIntent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        currentRingingActivityIntent = this.getIntent();
+
         setContentView(R.layout.activity_alarm_notification);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -37,6 +48,7 @@ public class AlarmNotificationActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 r.stop();
+                DiabetesApplication.getInstance().isRinging = false;
             }
         });
 

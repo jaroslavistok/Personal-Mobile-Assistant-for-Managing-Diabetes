@@ -43,29 +43,12 @@ public class SampleSchedulingService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-
         sendNotification("Notification");
-
-        // starts AlarmNotificationActivity
         Intent alarmActivityIntent = new Intent(getApplicationContext(), AlarmNotificationActivity.class);
         alarmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         alarmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         alarmActivityIntent.putExtra("meganufka", intent.getIntExtra("extraid", 0));
         getApplication().startActivity(alarmActivityIntent);
-
-        Log.w("idcko", String.valueOf(intent.getIntExtra("extraid", 0)));
-
-//        AlarmManager alarmMgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-//
-//        Intent intent1 = new Intent(getApplicationContext(), SampleAlarmReceiver.class);
-//        PendingIntent alarmIntent1 = PendingIntent.getBroadcast(getApplicationContext(), 1, intent1, 0);
-//
-//        Calendar now = Calendar.getInstance();
-//        alarmMgr.set(AlarmManager.RTC_WAKEUP, now.getTimeInMillis() + 30000, alarmIntent1);
-//
-
-        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        vibrator.vibrate(2000);
         Toast.makeText(getApplicationContext(), "I'm running", Toast.LENGTH_SHORT).show();
         SampleAlarmReceiver.completeWakefulIntent(intent);
     }

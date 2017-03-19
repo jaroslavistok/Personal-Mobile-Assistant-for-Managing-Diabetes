@@ -49,5 +49,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="app_title">Dia Manager</string>
     <string name="title_activity_alarm_notification">AlarmNotificationActivity</string>
+    <string name="title_activity_graph_view_example">GraphViewExample</string>
 
 </resources>
