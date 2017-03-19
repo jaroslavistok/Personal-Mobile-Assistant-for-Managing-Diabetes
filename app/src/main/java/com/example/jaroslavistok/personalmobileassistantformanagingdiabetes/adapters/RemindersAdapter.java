@@ -11,8 +11,14 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
-import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.alarm_example.SampleAlarmReceiver;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Reminder;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.managers.AlarmsManager;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -48,18 +54,59 @@ public class RemindersAdapter extends ArrayAdapter<Reminder> {
             viewHolder.alarmTime = (TextView) convertView.findViewById(R.id.alarm_time);
             viewHolder.reminderToggle = (Switch) convertView.findViewById(R.id.reminder_toggle);
 
+            if (reminder.isActive()) {
+                viewHolder.reminderToggle.setChecked(true);
+            } else {
+                viewHolder.reminderToggle.setChecked(false);
+            }
+
             viewHolder.reminderToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     Log.w("Switched", String.valueOf(b));
                     if (b) {
                         reminder.setActive(true);
-                        SampleAlarmReceiver alarm = new SampleAlarmReceiver();
-                        alarm.setAlarm(context);
-                        Log.w("seeee", "seeee");
+                        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                            Query query = reference.child("users").child(AlarmsManager.currentUserId).child("reminders").orderByChild("id").equalTo(reminder.getId());
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                                            reference.child("users").child(AlarmsManager.currentUserId).child("reminders").child(issue.getKey()).child("active").setValue(true);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
                     }
-                    else
+                    else {
                         reminder.setActive(false);
+                        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                        Query query = reference.child("users").child(AlarmsManager.currentUserId).child("reminders").orderByChild("id").equalTo(reminder.getId());
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+
+                                        Log.w("nuficka", "frfr");
+                                        reference.child("users").child(AlarmsManager.currentUserId).child("reminders").child(issue.getKey()).child("active").setValue(false);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
                 }
             });
 

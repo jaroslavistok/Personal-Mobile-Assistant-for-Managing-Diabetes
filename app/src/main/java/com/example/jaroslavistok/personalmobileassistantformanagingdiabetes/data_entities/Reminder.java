@@ -2,12 +2,14 @@ package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.dat
 
 public class Reminder {
 
+    private String id;
     private String name;
     private String category;
     private String alarmTime;
     private boolean isActive;
 
     public Reminder() {
+        this.id = "";
         this.name = "";
         this.category = "";
         this.alarmTime = "";
@@ -44,5 +46,13 @@ public class Reminder {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

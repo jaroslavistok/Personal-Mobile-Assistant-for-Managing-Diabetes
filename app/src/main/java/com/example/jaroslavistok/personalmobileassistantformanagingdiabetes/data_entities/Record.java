@@ -21,8 +21,6 @@ public class Record {
         note = "";
     }
 
-
-
     public String getDatetime() {
         return datetime;
     }

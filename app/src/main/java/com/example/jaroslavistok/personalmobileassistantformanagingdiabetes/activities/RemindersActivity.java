@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -48,16 +49,8 @@ public class RemindersActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
         FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mUserId = mFirebaseUser.getUid();
 
@@ -69,6 +62,7 @@ public class RemindersActivity extends AppCompatActivity {
         listView.setAdapter(remindersAdapter);
 
 
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(mUserId).child("reminders").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

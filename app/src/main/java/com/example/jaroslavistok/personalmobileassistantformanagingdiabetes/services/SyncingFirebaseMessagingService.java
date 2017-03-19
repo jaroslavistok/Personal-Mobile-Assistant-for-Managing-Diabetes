@@ -2,7 +2,7 @@ package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.ser
 
 import android.util.Log;
 
-import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.alarm_example.SampleAlarmReceiver;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.receivers.SampleAlarmReceiver;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -13,8 +13,8 @@ public class SyncingFirebaseMessagingService extends FirebaseMessagingService {
         Log.w("received", "on message received");
         String logType = "w";
 
-        SampleAlarmReceiver alarm = new SampleAlarmReceiver();
-        alarm.setAlarm(this);
+//        SampleAlarmReceiver alarm = new SampleAlarmReceiver();
+//        alarm.setAlarm(this);
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
@@ -29,9 +29,6 @@ public class SyncingFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.d(logType, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
-
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
     }
 
 
