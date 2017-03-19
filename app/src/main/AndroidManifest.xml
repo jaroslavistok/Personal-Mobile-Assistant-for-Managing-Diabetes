@@ -15,7 +15,8 @@
         android:icon="@drawable/diabetes_icon"
         android:label="@string/app_title"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".DiabetesApplication">
         <activity
             android:name=".activities.AddLogEntryActivity"
             android:label="@string/title_activity_add_log"
@@ -70,6 +71,10 @@
         <activity
             android:name=".activities.AlarmNotificationActivity"
             android:label="@string/title_activity_alarm_notification"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.GraphViewExampleActivity"
+            android:label="@string/title_activity_graph_view_example"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
