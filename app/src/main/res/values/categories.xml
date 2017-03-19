@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categories">
+        <item>Ráno</item>
+        <item>Desiata</item>
+        <item>Obed</item>
+        <item>Olovrant</item>
+        <item>Večera</item>
+        <item>Druhá večera</item>
+        <item>Noc</item>
+        <item>Ostatné</item>
+    </string-array>
+</resources>
