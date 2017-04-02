@@ -1,12 +1,15 @@
 package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
@@ -14,8 +17,29 @@ import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data
 
 import java.util.ArrayList;
 
-public class RecordsAdapter extends ArrayAdapter<Record> {
-    // View lookup cache
+public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
+
+    @NonNull
+    @Override
+    public Filter getFilter(){
+
+
+        Filter filter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                return null;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+
+            }
+        };
+
+
+        return null;
+    }
+
     private static class ViewHolder {
         TextView dateTime;
         TextView glucoseValue;

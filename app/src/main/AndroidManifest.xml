@@ -75,7 +75,7 @@
         <activity
             android:name=".activities.GraphViewExampleActivity"
             android:label="@string/title_activity_graph_view_example"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

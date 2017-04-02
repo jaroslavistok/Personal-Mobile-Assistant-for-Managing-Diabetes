@@ -36,7 +36,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     private Context context;
     private String uid;
     private FirebaseUser mFirebaseUser;
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
         @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -93,6 +93,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.auth = FirebaseAuth.getInstance();
 
         if (DiabetesApplication.getInstance().isRinging){
             startActivity(AlarmNotificationActivity.getCurrentRingingActivityIntent());
