@@ -49,8 +49,7 @@
 
         <receiver android:name=".receivers.SampleAlarmReceiver" />
         <receiver
-            android:name=".receivers.BootReceiver"
-            android:enabled="false">
+            android:name=".receivers.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
