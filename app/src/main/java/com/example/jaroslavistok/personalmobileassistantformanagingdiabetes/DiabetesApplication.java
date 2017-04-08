@@ -3,7 +3,6 @@ package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes;
 import android.app.Application;
 
 public class DiabetesApplication extends Application {
-
     private static DiabetesApplication instance;
 
     public boolean isRinging = false;
@@ -17,6 +16,4 @@ public class DiabetesApplication extends Application {
         super.onCreate();
         instance = this;
     }
-
-
 }
