@@ -3,7 +3,8 @@ package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.dat
 
 public class Record {
 
-    private String datetime;
+    private String date;
+    private String time;
     private String glucoseValue;
     private String fastInsuline;
     private String slowInsuline;
@@ -12,22 +13,15 @@ public class Record {
     private String note;
 
     public Record(){
-        datetime = "";
+        time = "";
+        date = "";
         glucoseValue = "";
         fastInsuline = "";
         slowInsuline = "";
         category = "";
-        carbs = "";
         note = "";
     }
 
-    public String getDatetime() {
-        return datetime;
-    }
-
-    public void setDatetime(String datetime) {
-        this.datetime = datetime;
-    }
 
     public String getGlucoseValue() {
         return glucoseValue;
@@ -61,19 +55,27 @@ public class Record {
         this.category = category;
     }
 
-    public String getCarbs() {
-        return carbs;
-    }
-
-    public void setCarbs(String carbs) {
-        this.carbs = carbs;
-    }
-
     public String getNote() {
         return note;
     }
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

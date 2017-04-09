@@ -68,7 +68,6 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
             viewHolder.category = (TextView) convertView.findViewById(R.id.category);
             viewHolder.fastInsuline = (TextView) convertView.findViewById(R.id.fast_insuline);
             viewHolder.slowInsuline = (TextView) convertView.findViewById(R.id.slow_insuline);
-            viewHolder.carbs = (TextView) convertView.findViewById(R.id.carbs);
             viewHolder.note = (TextView) convertView.findViewById(R.id.note);
             convertView.setTag(viewHolder);
         } else {
@@ -76,7 +75,7 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
         }
 
         if (record != null)
-            viewHolder.dateTime.setText(record.getDatetime());
+            viewHolder.dateTime.setText(record.getDate() + " " + record.getTime());
         else
             viewHolder.dateTime.setText("");
 
@@ -105,10 +104,6 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
         else
             viewHolder.note.setText("");
 
-        if (record != null)
-            viewHolder.carbs.setText(record.getCarbs());
-        else
-            viewHolder.carbs.setText("");
 
         Button deleteButton = (Button) convertView.findViewById(R.id.delete_record);
         Button updateButton = (Button) convertView.findViewById(R.id.update_record);
@@ -118,25 +113,6 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
             @Override
             public void onClick(View view) {
                 Log.w("button_clicked", "clicked");
-
-//                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-//                mDatabase.child("users").child(mUserId).child("items")
-//                        .orderByChild("title")
-//                        .equalTo((String) listView.getItemAtPosition(position))
-//                        .addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(DataSnapshot dataSnapshot) {
-//                                if (dataSnapshot.hasChildren()) {
-//                                    DataSnapshot firstChild = dataSnapshot.getChildren().iterator().next();
-//                                    firstChild.getRef().removeValue();
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(DatabaseError databaseError) {
-//
-//                            }
-//                        });
             }
         });
 

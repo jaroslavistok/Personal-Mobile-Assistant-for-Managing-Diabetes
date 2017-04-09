@@ -91,8 +91,8 @@ public class AddLogEntryActivity extends AppCompatActivity {
 
     private void saveDataToDatabase() {
         Record record = new Record();
-        record.setCarbs("tmp");
-        record.setDatetime(date.getText() + " " + time.getText());
+        record.setDate(date.getText().toString());
+        record.setTime(time.getText().toString());
         record.setCategory(selectedCategory);
         record.setFastInsuline(fastInsuline.getText().toString());
         record.setSlowInsuline(slowInsuline.getText().toString());
@@ -150,7 +150,7 @@ public class AddLogEntryActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 Log.w("date", "ondate");
-                date.setText(String.valueOf(i)+"."+String.valueOf(i1)+"."+String.valueOf(i2));
+                date.setText(datePicker.getDayOfMonth() + "." + datePicker.getMonth() + "." + datePicker.getYear() );
             }
         }, year, month, dayOfMonth);
 
@@ -174,7 +174,7 @@ public class AddLogEntryActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                 Log.w("time", "ontime");
-                time.setText(String.valueOf(i) + ":" + String.valueOf(i1));
+                time.setText(timePicker.getHour() + ":" + timePicker.getMinute());
             }
         }, hour, minute, true);
 
