@@ -98,12 +98,8 @@
         android:hint="Poznámka" />
 
     <Spinner
-
         android:id="@+id/categories_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
     </Spinner>
-
-
 </RelativeLayout>

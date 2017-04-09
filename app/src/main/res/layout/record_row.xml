@@ -37,18 +37,10 @@
         android:layout_marginTop="10dp" />
 
     <TextView
-        android:id="@+id/carbs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/slow_insuline"
-        android:text="Počet sacharidových jednotiek: "
-        android:layout_marginTop="10dp" />
-
-    <TextView
         android:id="@+id/note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/carbs"
+        android:layout_below="@id/slow_insuline"
         android:text="Poznámka: "
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp" />
