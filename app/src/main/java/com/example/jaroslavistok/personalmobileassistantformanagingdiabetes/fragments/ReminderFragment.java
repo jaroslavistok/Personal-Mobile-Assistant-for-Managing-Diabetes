@@ -13,11 +13,13 @@ import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.activities.AddLogEntryActivity;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Record;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Reminder;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.managers.AlarmsManager;
 import com.google.firebase.auth.FirebaseAuth;
