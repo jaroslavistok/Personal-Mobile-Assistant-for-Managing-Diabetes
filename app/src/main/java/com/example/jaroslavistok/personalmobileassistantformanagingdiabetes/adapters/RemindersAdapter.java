@@ -116,21 +116,20 @@ public class RemindersAdapter extends ArrayAdapter<Reminder> {
         }
 
         if (reminder != null)
-            viewHolder.name.append(reminder.getName());
+            viewHolder.name.setText("Názov: " + reminder.getName());
         else
             viewHolder.name.setText("");
 
         if (reminder != null)
-            viewHolder.category.append(reminder.getCategory());
+            viewHolder.category.setText("Kategória: " + reminder.getCategory());
         else
             viewHolder.category.setText("");
 
         if (reminder != null)
-            viewHolder.alarmTime.append(reminder.getAlarmTime());
+            viewHolder.alarmTime.setText("Čas: " + reminder.getAlarmTime());
         else
             viewHolder.alarmTime.setText("");
 
         return convertView;
     }
-
 }

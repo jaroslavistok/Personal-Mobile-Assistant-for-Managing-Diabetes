@@ -16,28 +16,48 @@ import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Record;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
+
+
+    public List<Record> getItems(){
+        List<Record> records = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++){
+            records.add(getItem(i));
+        }
+        return records;
+    }
 
     @NonNull
     @Override
     public Filter getFilter(){
-
-
         Filter filter = new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-                return null;
+                List<Record> records = getItems();
+
+                String filterValue = charSequence.toString();
+
+                //TODO filter results
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = records;
+                filterResults.count = records.size();
+                return filterResults;
             }
 
+            @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-
+                if (filterResults.count > 0) {
+                    notifyDataSetChanged();
+                } else {
+                    notifyDataSetInvalidated();
+                }
             }
+
         };
-
-
-        return null;
+        return filter;
     }
 
     private static class ViewHolder {
@@ -75,32 +95,32 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
         }
 
         if (record != null)
-            viewHolder.dateTime.append(record.getDate() + "\n" + record.getTime());
+            viewHolder.dateTime.setText("Dátum a čas: " + record.getDate() + "\n" + record.getTime());
         else
             viewHolder.dateTime.setText("");
 
         if (record != null)
-            viewHolder.glucoseValue.append(record.getGlucoseValue());
+            viewHolder.glucoseValue.setText("Hodnota glykémie: " + record.getGlucoseValue());
         else
             viewHolder.glucoseValue.setText("");
 
         if (record != null)
-            viewHolder.category.append( record.getCategory());
+            viewHolder.category.setText("Kategória: " + record.getCategory());
         else
             viewHolder.category.setText("");
 
         if (record != null)
-            viewHolder.fastInsuline.append(record.getFastInsuline());
+            viewHolder.fastInsuline.setText("Rýchly inzulín: " + record.getFastInsuline());
         else
             viewHolder.fastInsuline.setText("");
 
         if (record != null)
-            viewHolder.slowInsuline.append(record.getSlowInsuline());
+            viewHolder.slowInsuline.setText("Pomalý inzulín: " + record.getSlowInsuline());
         else
             viewHolder.slowInsuline.setText("");
 
         if (record != null)
-            viewHolder.note.append( record.getNote());
+            viewHolder.note.setText("Poznámka: " + record.getNote());
         else
             viewHolder.note.setText("");
 
