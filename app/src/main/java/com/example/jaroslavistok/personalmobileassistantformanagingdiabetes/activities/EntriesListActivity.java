@@ -6,11 +6,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Record;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.adapters.RecordsAdapter;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.fragments.FilterFragment;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.fragments.ReminderFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -26,6 +30,7 @@ public class EntriesListActivity extends AppCompatActivity {
 
 
     private String mUserId;
+    public ArrayAdapter<Record> recordArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +50,27 @@ public class EntriesListActivity extends AppCompatActivity {
 
         ArrayList<Record> recordList = new ArrayList<>();
         final RecordsAdapter recordsAdapter = new RecordsAdapter(this, recordList);
+        this.recordArrayAdapter = recordsAdapter;
         listView.setAdapter(recordsAdapter);
+
+
+        final Button filterButton = (Button) findViewById(R.id.filter_button);
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FilterFragment filterFragment = new FilterFragment();
+                filterFragment.show(getSupportFragmentManager(), "tag");
+            }
+        });
+
 
 
         mDatabase.child("users").child(mUserId).child("items").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 recordsAdapter.add(dataSnapshot.getValue(Record.class));
+                recordsAdapter.getItems();
             }
 
             @Override
@@ -72,28 +91,6 @@ public class EntriesListActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mDatabase.child("users").child(mUserId).child("items")
-                        .orderByChild("title")
-                        .equalTo((String) listView.getItemAtPosition(position))
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.hasChildren()) {
-                                    DataSnapshot firstChild = dataSnapshot.getChildren().iterator().next();
-                                    firstChild.getRef().removeValue();
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
             }
         });
 
