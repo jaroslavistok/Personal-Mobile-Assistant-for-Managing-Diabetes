@@ -116,17 +116,17 @@ public class RemindersAdapter extends ArrayAdapter<Reminder> {
         }
 
         if (reminder != null)
-            viewHolder.name.setText(reminder.getName());
+            viewHolder.name.append(reminder.getName());
         else
             viewHolder.name.setText("");
 
         if (reminder != null)
-            viewHolder.category.setText(reminder.getCategory());
+            viewHolder.category.append(reminder.getCategory());
         else
             viewHolder.category.setText("");
 
         if (reminder != null)
-            viewHolder.alarmTime.setText(reminder.getAlarmTime());
+            viewHolder.alarmTime.append(reminder.getAlarmTime());
         else
             viewHolder.alarmTime.setText("");
 

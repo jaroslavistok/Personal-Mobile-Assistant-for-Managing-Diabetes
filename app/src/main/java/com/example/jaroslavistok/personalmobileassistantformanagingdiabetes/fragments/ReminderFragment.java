@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.activities.AddLogEntryActivity;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Reminder;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.managers.AlarmsManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +33,7 @@ public class ReminderFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.add_reminder_dialog, null);
 
@@ -53,26 +54,54 @@ public class ReminderFragment extends DialogFragment {
                         EditText categoryEditText = (EditText) view.findViewById(R.id.reminder_category_input);
                         EditText alarmTimeEditText = (EditText) view.findViewById(R.id.datetime_reminder_pick);
                         String alarmId = String.valueOf(AlarmsManager.lastAlarmId +1);
-                        Reminder record = new Reminder();
-                        record.setName(String.valueOf(nameEditText.getText()));
-                        record.setCategory(String.valueOf(categoryEditText.getText()));
-                        record.setAlarmTime(String.valueOf(alarmTimeEditText.getText()));
-                        record.setId(alarmId);
-                        record.setActive(false);
+                        Reminder reminder = new Reminder();
+                        reminder.setName(String.valueOf(nameEditText.getText()));
+                        reminder.setCategory(String.valueOf(categoryEditText.getText()));
+                        reminder.setAlarmTime(String.valueOf(alarmTimeEditText.getText()));
+                        reminder.setId(alarmId);
+                        reminder.setActive(false);
 
-                        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-                        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                        String mUserId  = null;
-                        if (mFirebaseUser != null)
-                            mUserId = mFirebaseUser.getUid();
-                        else
-                            mUserId = "";
-                        DatabaseReference firebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
-                        firebaseDatabaseReference.child("users").child(mUserId).child("reminders").push().setValue(record);
-                        firebaseDatabaseReference.child("users").child(mUserId).child("last_reminder_id").setValue(alarmId);
+                        if (validateReminderData(reminder)) {
+
+                            FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+                            FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                            String mUserId = null;
+                            if (mFirebaseUser != null)
+                                mUserId = mFirebaseUser.getUid();
+                            else
+                                mUserId = "";
+                            DatabaseReference firebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+                            firebaseDatabaseReference.child("users").child(mUserId).child("reminders").push().setValue(reminder);
+                            firebaseDatabaseReference.child("users").child(mUserId).child("last_reminder_id").setValue(alarmId);
+                        } else {
+                            android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
+                            builder.setMessage(R.string.add_log_error_message)
+                                    .setTitle(R.string.add_log_error_message)
+                                    .setPositiveButton(android.R.string.ok, null);
+                            android.support.v7.app.AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                        }
                     }
                 }).setNegativeButton("Cancel", null);
         return alert.create();
+    }
+
+    private boolean validateReminderData(Reminder reminder) {
+        boolean isValid = true;
+
+        if (reminder.getName().isEmpty()) {
+            isValid = false;
+        }
+
+        if (reminder.getAlarmTime().isEmpty()){
+            isValid = false;
+        }
+
+        if (reminder.getCategory().isEmpty()){
+            isValid = false;
+        }
+
+        return isValid;
     }
 
     @TargetApi(Build.VERSION_CODES.N)

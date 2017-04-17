@@ -3,6 +3,7 @@ package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.act
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -121,10 +122,12 @@ public class AddLogEntryActivity extends AppCompatActivity {
 
     public static boolean isNumeric(String str)
     {
-        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+        return str.matches("-?\\d+(\\.\\d+)?");
     }
 
     private void transitToLogBook() {
+        startActivity(new Intent(AddLogEntryActivity.this, EntriesListActivity.class));
+
     }
 
     private void initializeCategoriesSpinner() {
@@ -197,7 +200,6 @@ public class AddLogEntryActivity extends AppCompatActivity {
         DatePickerDialog datePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                Log.w("date", "ondate");
                 date.setText(datePicker.getDayOfMonth() + "." + datePicker.getMonth() + "." + datePicker.getYear() );
             }
         }, year, month, dayOfMonth);
@@ -221,7 +223,6 @@ public class AddLogEntryActivity extends AppCompatActivity {
         final TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                Log.w("time", "ontime");
                 time.setText(timePicker.getHour() + ":" + timePicker.getMinute());
             }
         }, hour, minute, true);

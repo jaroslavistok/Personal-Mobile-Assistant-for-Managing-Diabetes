@@ -75,54 +75,35 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
         }
 
         if (record != null)
-            viewHolder.dateTime.setText(record.getDate() + " " + record.getTime());
+            viewHolder.dateTime.append(record.getDate() + "\n" + record.getTime());
         else
             viewHolder.dateTime.setText("");
 
         if (record != null)
-            viewHolder.glucoseValue.setText(record.getGlucoseValue());
+            viewHolder.glucoseValue.append(record.getGlucoseValue());
         else
             viewHolder.glucoseValue.setText("");
 
         if (record != null)
-            viewHolder.category.setText(record.getCategory());
+            viewHolder.category.append( record.getCategory());
         else
             viewHolder.category.setText("");
 
         if (record != null)
-            viewHolder.fastInsuline.setText(record.getFastInsuline());
+            viewHolder.fastInsuline.append(record.getFastInsuline());
         else
             viewHolder.fastInsuline.setText("");
 
         if (record != null)
-            viewHolder.slowInsuline.setText(record.getSlowInsuline());
+            viewHolder.slowInsuline.append(record.getSlowInsuline());
         else
             viewHolder.slowInsuline.setText("");
 
         if (record != null)
-            viewHolder.note.setText(record.getNote());
+            viewHolder.note.append( record.getNote());
         else
             viewHolder.note.setText("");
 
-
-        Button deleteButton = (Button) convertView.findViewById(R.id.delete_record);
-        Button updateButton = (Button) convertView.findViewById(R.id.update_record);
-
-
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.w("button_clicked", "clicked");
-            }
-        });
-
-
-        updateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.w("button_clicked", "clicked");
-            }
-        });
         return convertView;
     }
 }
