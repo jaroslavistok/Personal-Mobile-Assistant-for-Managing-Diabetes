@@ -1,18 +1,34 @@
 package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.activities;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
+import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Record;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class GraphViewExampleActivity extends AppCompatActivity {
+
+    private int xAxis = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +47,46 @@ public class GraphViewExampleActivity extends AppCompatActivity {
         });
 
         // example of graph view
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
+        final GraphView graph = (GraphView) findViewById(R.id.graph);
+        final LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>();
+
         graph.addSeries(series);
 
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String currentUserID = firebaseUser.getUid();
+
+
+        databaseReference.child("users").child(currentUserID).child("items").addChildEventListener(new ChildEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Record record = dataSnapshot.getValue(Record.class);
+                String yAxis = record.getGlucoseValue();
+                series.appendData(new DataPoint(xAxis++, Integer.valueOf(yAxis)), true, 100);
+                graph.refreshDrawableState();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }
