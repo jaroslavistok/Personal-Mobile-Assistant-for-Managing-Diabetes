@@ -13,7 +13,6 @@
         android:layout_marginLeft="19dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="14dp"
-        android:text="Nazov: "
         android:textSize="24sp" />
 
     <TextView
@@ -24,7 +23,6 @@
         android:layout_alignStart="@+id/reminder_name"
         android:layout_below="@+id/reminder_name"
         android:layout_marginTop="10dp"
-        android:text="Kategoria: "
         android:textSize="24sp" />
 
     <TextView
@@ -35,7 +33,6 @@
         android:layout_alignStart="@+id/reminder_category"
         android:layout_below="@+id/reminder_category"
         android:layout_marginTop="12dp"
-        android:text="Time: "
         android:textSize="24sp" />
 
     <Switch

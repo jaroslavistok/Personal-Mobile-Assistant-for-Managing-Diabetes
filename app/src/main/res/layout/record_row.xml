@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/datetime"
         android:layout_marginTop="10dp"
-        android:text="Hodnota glykémie: "
         android:textSize="24sp" />
 
     <TextView
@@ -28,16 +27,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/glucose"
         android:layout_marginTop="10dp"
-        android:text="Rýchly inzulín: "
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/slow_insuline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fast_insuline"
-        android:layout_marginTop="10dp"
-        android:text="Pomalý inzulín: "
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/fast_insuline"
         android:textSize="24sp" />
 
     <TextView
@@ -47,20 +45,17 @@
         android:layout_below="@id/slow_insuline"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:text="Poznámka: "
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/category"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/datetime"
-        android:layout_alignBottom="@+id/datetime"
         android:layout_alignParentEnd="true"
+        android:layout_below="@+id/note"
         android:layout_alignParentRight="true"
         android:layout_marginEnd="51dp"
         android:layout_marginRight="51dp"
-        android:text="Kategória: "
         android:textSize="24sp" />
 
 
