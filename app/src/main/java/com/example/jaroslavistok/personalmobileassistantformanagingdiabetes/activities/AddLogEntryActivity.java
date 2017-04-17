@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -66,7 +67,17 @@ public class AddLogEntryActivity extends AppCompatActivity {
                 Snackbar.make(view, "Saving data", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                saveDataToDatabase();
+                if (validateData()) {
+                    saveDataToDatabase();
+                    transitToLogBook();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddLogEntryActivity.this);
+                    builder.setMessage(R.string.add_log_error_message)
+                            .setTitle(R.string.add_log_error_message)
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
             }
         });
 
@@ -80,8 +91,45 @@ public class AddLogEntryActivity extends AppCompatActivity {
 
     }
 
+    private boolean validateData() {
+        boolean areValid = true;
+        if (!isNumeric(this.glucose.getText().toString()) && this.glucose.getText().toString().length() > 0){
+            areValid = false;
+        }
+        if (this.glucose.toString().isEmpty()){
+            areValid = false;
+        }
+
+        if (!isNumeric(this.slowInsuline.getText().toString()) && this.slowInsuline.getText().toString().length() > 0){
+            areValid = false;
+        }
+
+        if (!isNumeric(this.fastInsuline.getText().toString()) && this.fastInsuline.getText().toString().length() > 0){
+            areValid = false;
+        }
+
+        if (this.date.getText().toString().isEmpty()){
+            areValid = false;
+        }
+
+        if (this.time.getText().toString().isEmpty()){
+            areValid = false;
+        }
+
+        return areValid;
+    }
+
+    public static boolean isNumeric(String str)
+    {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
+
+    private void transitToLogBook() {
+    }
+
     private void initializeCategoriesSpinner() {
         categoriesSpinner = (Spinner) findViewById(R.id.categories_spinner);
+        categoriesSpinner.setSelection(0);
         categoriesSpinner.setOnItemSelectedListener(new SpinnerSelection());
         ArrayAdapter<CharSequence> categoriesSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
         categoriesSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
