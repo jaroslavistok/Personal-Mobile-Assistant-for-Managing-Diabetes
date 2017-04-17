@@ -51,4 +51,6 @@
     <string name="title_activity_alarm_notification">AlarmNotificationActivity</string>
     <string name="title_activity_graph_view_example">GraphViewExample</string>
 
+    <string name="add_log_error_message">Chybne zadane udaje</string>
+
 </resources>
