@@ -60,26 +60,36 @@ public class FilterFragment extends DialogFragment {
             }
         });
 
-        alert.setTitle("Add a new filter").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setTitle("Pridaj novy filter").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EditText nameEditText = (EditText) view.findViewById(R.id.from_date);
-                EditText categoryEditText = (EditText) view.findViewById(R.id.to_date);
-
-                if (validateFilterData()) {
-                    ((EntriesListActivity)getActivity()).recordArrayAdapter.getFilter().filter("");
-                    Log.w("filtering","something");
+                EditText fromDate = (EditText) view.findViewById(R.id.from_date);
+                EditText toDate = (EditText) view.findViewById(R.id.to_date);
+                String filterDateRange = "";
+                filterDateRange += fromDate.getText().toString() + "&" + toDate.getText().toString();
+                if (validateFilterData(fromDate, toDate)) {
+                    ((EntriesListActivity)getActivity()).recordArrayAdapter.getFilter().filter(filterDateRange);
                 } else {
-
+                    android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
+                    builder.setMessage(R.string.add_log_error_message)
+                            .setTitle(R.string.add_log_error_message)
+                            .setPositiveButton(android.R.string.ok, null);
+                    android.support.v7.app.AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 }
             }
         }).setNegativeButton("Cancel", null);
         return alert.create();
     }
 
-    private boolean validateFilterData() {
+    private boolean validateFilterData(EditText fromDate, EditText toDate) {
         boolean isValid = true;
-
+        if (fromDate.getText().toString().isEmpty()){
+            isValid = false;
+        }
+        if (toDate.getText().toString().isEmpty()){
+            isValid = false;
+        }
 
         return isValid;
     }

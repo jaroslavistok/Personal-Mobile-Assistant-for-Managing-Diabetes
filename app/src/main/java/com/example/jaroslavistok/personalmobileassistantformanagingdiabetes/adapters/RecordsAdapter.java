@@ -1,7 +1,11 @@
 package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.adapters;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +19,9 @@ import android.widget.TextView;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.R;
 import com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.data_entities.Record;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
@@ -36,13 +42,24 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 List<Record> records = getItems();
-
                 String filterValue = charSequence.toString();
+                String []range = filterValue.split("&");
+                String fromDate = range[0];
+                String toDate = range[1];
 
-                //TODO filter results
+                List<Record> filteredRecords = new ArrayList<>();
+                for(Record record : records) {
+                    if (compareDates(record.getDate(), fromDate) == 1 && compareDates(record.getDate(), toDate) == -1){
+                        filteredRecords.add(record);
+                    }
+                    if (compareDates(record.getDate(), fromDate) == 0 || compareDates(record.getDate(), toDate) == 0){
+                        filteredRecords.add(record);
+                    }
+                }
+
                 FilterResults filterResults = new FilterResults();
-                filterResults.values = records;
-                filterResults.count = records.size();
+                filterResults.values = filteredRecords;
+                filterResults.count = filteredRecords.size();
                 return filterResults;
             }
 
@@ -50,6 +67,9 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 if (filterResults.count > 0) {
+                    clear();
+                    addAll((List<Record>)filterResults.values);
+
                     notifyDataSetChanged();
                 } else {
                     notifyDataSetInvalidated();
@@ -58,6 +78,37 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
 
         };
         return filter;
+    }
+
+    private int compareDates(String date1, String date2) {
+        long date1Timestamp = getTimestamp(date1);
+        long date2Timestamp = getTimestamp(date2);
+
+        if (date1Timestamp < date2Timestamp){
+            return -1;
+        }
+
+        if (date1Timestamp >  date2Timestamp){
+            return 1;
+        }
+
+        if (date1Timestamp == date2Timestamp){
+            return 0;
+        }
+
+        return 0;
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private long getTimestamp(String date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        Date strDate = null;
+        try {
+            strDate = dateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return strDate.getTime();
     }
 
     private static class ViewHolder {
