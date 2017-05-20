@@ -35,7 +35,6 @@ public class AlarmsManager {
             am.setExact(ALARM_TYPE, timeInMiliseconds, pendingIntent);
         else
             am.set(ALARM_TYPE, timeInMiliseconds, pendingIntent);
-
         saveAlarmId(context, alarmId);
     }
 
