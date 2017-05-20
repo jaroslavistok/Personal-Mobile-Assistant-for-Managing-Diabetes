@@ -37,18 +37,22 @@ public class GraphViewExampleActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // example of graph view
+        final GraphView graph = (GraphView) findViewById(R.id.graph);
+        final LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>();
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Refreshing", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                graph.removeAllSeries();
+                graph.addSeries(series);
+                graph.refreshDrawableState();
             }
         });
-
-        // example of graph view
-        final GraphView graph = (GraphView) findViewById(R.id.graph);
-        final LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>();
 
         graph.addSeries(series);
 

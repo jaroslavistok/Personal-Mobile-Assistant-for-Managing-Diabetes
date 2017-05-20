@@ -22,6 +22,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected EditText passwordEditText;
     protected EditText emailEditText;
     protected Button signUpButton;
+    protected Button backToLogin;
     private FirebaseAuth mFirebaseAuth;
 
 
@@ -29,12 +30,22 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        // Initialize FirebaseAuth
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         passwordEditText = (EditText)findViewById(R.id.passwordField);
         emailEditText = (EditText)findViewById(R.id.emailField);
+
+        backToLogin = (Button)findViewById(R.id.backToLogin);
+        backToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
         signUpButton = (Button)findViewById(R.id.signupButton);
 
         signUpButton.setOnClickListener(new View.OnClickListener() {

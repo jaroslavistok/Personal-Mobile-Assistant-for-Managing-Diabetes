@@ -60,7 +60,7 @@ public class FilterFragment extends DialogFragment {
             }
         });
 
-        alert.setTitle("Pridaj novy filter").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setTitle("Pridaj nový filter").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 EditText fromDate = (EditText) view.findViewById(R.id.from_date);
@@ -78,7 +78,7 @@ public class FilterFragment extends DialogFragment {
                     alertDialog.show();
                 }
             }
-        }).setNegativeButton("Cancel", null);
+        }).setNegativeButton("Zrušiť", null);
         return alert.create();
     }
 

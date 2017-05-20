@@ -43,10 +43,8 @@ public class HomeScreenActivity extends AppCompatActivity {
             FirebaseUser user = firebaseAuth.getCurrentUser();
             if (user != null) {
                 mFirebaseUser = user;
-                Log.d("nufi", "onAuthStateChanged:signed_in:" + user.getUid());
             } else {
                 mFirebaseUser = null;
-                Log.d("nufi", "onAuthStateChanged:signed_out");
             }
         }
     };

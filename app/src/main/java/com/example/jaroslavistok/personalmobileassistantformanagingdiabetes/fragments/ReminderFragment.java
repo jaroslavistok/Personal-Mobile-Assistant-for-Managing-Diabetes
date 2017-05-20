@@ -84,7 +84,7 @@ public class ReminderFragment extends DialogFragment {
                             alertDialog.show();
                         }
                     }
-                }).setNegativeButton("Cancel", null);
+                }).setNegativeButton("Zrušiť", null);
         return alert.create();
     }
 
@@ -109,17 +109,15 @@ public class ReminderFragment extends DialogFragment {
     @TargetApi(Build.VERSION_CODES.N)
     private void showTimePicker() {
         final Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
         final TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                Log.w("time", "ontime");
                 alarmTimeEditText.setText(String.valueOf(i) + ":" + String.valueOf(i1));
             }
         }, hour, minute, true);
-
         toggleTimePicker(timePickerDialog);
     }
 

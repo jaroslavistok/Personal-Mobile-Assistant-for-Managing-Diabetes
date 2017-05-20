@@ -217,7 +217,8 @@ public class AddLogEntryActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.N)
     private void showTimePicker() {
         final Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR);
+
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
         final TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {

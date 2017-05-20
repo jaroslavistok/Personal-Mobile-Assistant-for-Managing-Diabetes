@@ -26,6 +26,8 @@ import java.util.List;
 
 public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
 
+    public static int MAX_DISPLAYED_ITEMS = 2;
+
 
     public List<Record> getItems(){
         List<Record> records = new ArrayList<>();
@@ -117,7 +119,6 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
         TextView category;
         TextView fastInsuline;
         TextView slowInsuline;
-        TextView carbs;
         TextView note;
     }
 

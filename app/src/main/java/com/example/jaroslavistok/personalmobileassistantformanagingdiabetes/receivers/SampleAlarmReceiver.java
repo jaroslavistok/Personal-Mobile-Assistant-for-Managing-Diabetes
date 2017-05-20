@@ -18,6 +18,7 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
 
     private static final long DAY_IN_MILISECONDS = 86400000L;
     private static final long MINUTE_IN_MILISECONDS  = 60000L;
+    private static final int VIBRATION_DURATION = 2500;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -25,7 +26,7 @@ public class SampleAlarmReceiver extends WakefulBroadcastReceiver {
         Intent service = new Intent(context, SampleSchedulingService.class);
         service.putExtra("alarmId", intent.getIntExtra("alarmId", 0));
         Vibrator vibrator = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
-        vibrator.vibrate(2000);
+        vibrator.vibrate(VIBRATION_DURATION);
         Calendar now = Calendar.getInstance();
         AlarmsManager.addAlarm(context, intent, intent.getIntExtra("alarmId",0), now.getTimeInMillis() + DAY_IN_MILISECONDS);
         Log.w("Active alarms IDs", String.valueOf(AlarmsManager.getAlarmIds(context)));
