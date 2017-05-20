@@ -1,5 +1,7 @@
 package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.activities;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -28,15 +30,13 @@ public class AlarmNotificationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         currentRingingActivityIntent = this.getIntent();
-
         setContentView(R.layout.activity_alarm_notification);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Intent activityIntent = getIntent();
-        Log.w("Turbonufka", String.valueOf(activityIntent.getIntExtra("meganufka", 1)));
 
+        Intent activityIntent = getIntent();
+        Log.w("Turbonufka", String.valueOf(activityIntent.getIntExtra("alarmId", 1)));
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         final Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
         r.play();
@@ -45,10 +45,14 @@ public class AlarmNotificationActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 r.stop();
                 DiabetesApplication.getInstance().isRinging = false;
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(1);
+
+                Intent addLogEntryActivity = new Intent(getApplicationContext(), AddLogEntryActivity.class);
+                getApplication().startActivity(addLogEntryActivity);
+
             }
         });
 

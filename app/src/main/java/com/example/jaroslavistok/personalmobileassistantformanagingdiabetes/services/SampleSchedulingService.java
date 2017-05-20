@@ -47,9 +47,8 @@ public class SampleSchedulingService extends IntentService {
         Intent alarmActivityIntent = new Intent(getApplicationContext(), AlarmNotificationActivity.class);
         alarmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         alarmActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        alarmActivityIntent.putExtra("meganufka", intent.getIntExtra("extraid", 0));
+        alarmActivityIntent.putExtra("alarmId", intent.getIntExtra("alarmId", 0));
         getApplication().startActivity(alarmActivityIntent);
-        Toast.makeText(getApplicationContext(), "I'm running", Toast.LENGTH_SHORT).show();
         SampleAlarmReceiver.completeWakefulIntent(intent);
     }
 
