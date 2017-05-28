@@ -1,8 +1,11 @@
 package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -64,6 +67,14 @@ public class EntriesListActivity extends AppCompatActivity {
             }
         });
 
+        final FloatingActionButton addNewEntryButton = (FloatingActionButton) findViewById(R.id.fab_list);
+        addNewEntryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EntriesListActivity.this, AddLogEntryActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         mDatabase.child("users").child(mUserId).child("items").addChildEventListener(new ChildEventListener() {
@@ -94,6 +105,14 @@ public class EntriesListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        Intent setIntent = new Intent(EntriesListActivity.this, HomeScreenActivity.class);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(setIntent);
     }
 
 

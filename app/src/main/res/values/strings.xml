@@ -54,5 +54,6 @@
     <string name="add_log_error_message">Chybne zadané údaje</string>
     <string name="logout_button">Odhlásiť</string>
     <string name="back_to_login">Prihlásiť</string>
+    <string name="List">Záznamy</string>
 
 </resources>

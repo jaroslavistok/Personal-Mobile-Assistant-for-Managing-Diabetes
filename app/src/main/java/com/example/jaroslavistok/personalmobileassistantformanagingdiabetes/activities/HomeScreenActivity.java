@@ -155,6 +155,9 @@ public class HomeScreenActivity extends AppCompatActivity {
             logoutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Intent intent = new Intent(HomeScreenActivity.this, SampleAlarmReceiver.class);
+                    AlarmsManager.cancelAllAlarms(getApplicationContext(), intent);
+                    AlarmsManager.lastAlarmId = 0;
                     auth.signOut();
                     loadLogInView();
                 }

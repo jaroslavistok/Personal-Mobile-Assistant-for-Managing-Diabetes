@@ -94,8 +94,6 @@ public class RemindersAdapter extends ArrayAdapter<Reminder> {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()) {
                                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
-
-                                        Log.w("nuficka", "frfr");
                                         reference.child("users").child(AlarmsManager.currentUserId).child("reminders").child(issue.getKey()).child("active").setValue(false);
                                     }
                                 }

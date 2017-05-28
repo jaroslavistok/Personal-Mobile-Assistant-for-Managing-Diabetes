@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -70,8 +72,13 @@ public class SignUpActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        String uid = mFirebaseAuth.getCurrentUser().getUid();
+
+                                        DatabaseReference firebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+                                        firebaseDatabaseReference.child("users").child(uid).child("admin").setValue(false);
+                                        firebaseDatabaseReference.child("users").child(uid).child("admin_code").setValue("0000");
+
                                         Intent intent = new Intent(SignUpActivity.this, HomeScreenActivity.class);
-                                        Log.w("starting", "activity");
                                         startActivity(intent);
                                     } else {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);

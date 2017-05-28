@@ -1,5 +1,6 @@
 package com.example.jaroslavistok.personalmobileassistantformanagingdiabetes.activities;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -91,6 +92,15 @@ public class GraphViewExampleActivity extends AppCompatActivity {
 
             }
         });
+
+
+    }
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        Intent setIntent = new Intent(GraphViewExampleActivity.this, HomeScreenActivity.class);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(setIntent);
     }
 
 }

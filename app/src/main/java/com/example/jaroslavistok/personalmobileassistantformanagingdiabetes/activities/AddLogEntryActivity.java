@@ -88,8 +88,14 @@ public class AddLogEntryActivity extends AppCompatActivity {
 
         setOnFocusListenersForDateAndTime();
 
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        Intent setIntent = new Intent(AddLogEntryActivity.this, HomeScreenActivity.class);
+        setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(setIntent);
     }
 
     private boolean validateData() {
@@ -224,7 +230,13 @@ public class AddLogEntryActivity extends AppCompatActivity {
         final TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                time.setText(timePicker.getHour() + ":" + timePicker.getMinute());
+                String hoursRaw = String.valueOf(i);
+                String minutesRaw = String.valueOf(i1);
+                if (hoursRaw.length() == 1)
+                    hoursRaw = "0" + hoursRaw;
+                if (minutesRaw.length() == 1)
+                    minutesRaw = "0" + minutesRaw;
+                time.setText(hoursRaw + ":" + minutesRaw);
             }
         }, hour, minute, true);
 

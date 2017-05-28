@@ -101,5 +101,5 @@
         android:id="@+id/categories_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"></Spinner>
+        android:layout_marginLeft="30dp" />
 </RelativeLayout>

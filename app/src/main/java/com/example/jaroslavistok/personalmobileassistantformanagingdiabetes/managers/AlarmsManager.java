@@ -48,6 +48,7 @@ public class AlarmsManager {
 
     public static void cancelAllAlarms(Context context, Intent intent) {
         for (int idAlarm : getAlarmIds(context)) {
+            Log.w("cancelling ", " " + idAlarm);
             cancelAlarm(context, intent, idAlarm);
         }
     }

@@ -109,13 +109,20 @@ public class ReminderFragment extends DialogFragment {
     @TargetApi(Build.VERSION_CODES.N)
     private void showTimePicker() {
         final Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
+        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        final int minute = calendar.get(Calendar.MINUTE);
 
         final TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                alarmTimeEditText.setText(String.valueOf(i) + ":" + String.valueOf(i1));
+                String hoursRaw = String.valueOf(i);
+                String minutesRaw = String.valueOf(i1);
+
+                if (hoursRaw.length() == 1)
+                    hoursRaw = "0" + hoursRaw;
+                if (minutesRaw.length() == 1)
+                    minutesRaw = "0" + minutesRaw;
+                alarmTimeEditText.setText(hoursRaw + ":" + minutesRaw);
             }
         }, hour, minute, true);
         toggleTimePicker(timePickerDialog);
