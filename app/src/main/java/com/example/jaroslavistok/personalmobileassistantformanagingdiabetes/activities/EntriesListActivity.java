@@ -28,12 +28,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EntriesListActivity extends AppCompatActivity {
 
 
     private String mUserId;
     public ArrayAdapter<Record> recordArrayAdapter;
+    private List<Record> items = new ArrayList<Record>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class EntriesListActivity extends AppCompatActivity {
 
         ArrayList<Record> recordList = new ArrayList<>();
         final RecordsAdapter recordsAdapter = new RecordsAdapter(this, recordList);
+        recordsAdapter.setInitialItems(items);
         this.recordArrayAdapter = recordsAdapter;
         listView.setAdapter(recordsAdapter);
 
@@ -77,10 +80,13 @@ public class EntriesListActivity extends AppCompatActivity {
         });
 
 
+
+
         mDatabase.child("users").child(mUserId).child("items").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 recordsAdapter.add(dataSnapshot.getValue(Record.class));
+                items.add(dataSnapshot.getValue(Record.class));
                 recordsAdapter.getItems();
             }
 

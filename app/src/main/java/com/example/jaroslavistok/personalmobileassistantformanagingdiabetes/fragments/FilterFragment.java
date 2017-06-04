@@ -68,6 +68,7 @@ public class FilterFragment extends DialogFragment {
                 String filterDateRange = "";
                 filterDateRange += fromDate.getText().toString() + "&" + toDate.getText().toString();
                 if (validateFilterData(fromDate, toDate)) {
+
                     ((EntriesListActivity)getActivity()).recordArrayAdapter.getFilter().filter(filterDateRange);
                 } else {
                     android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
@@ -106,9 +107,9 @@ public class FilterFragment extends DialogFragment {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 if (type.equals("to"))
-                    toDateEditText.setText(datePicker.getDayOfMonth() + "." + datePicker.getMonth() + "." + datePicker.getYear() );
+                    toDateEditText.setText(datePicker.getDayOfMonth() + "." + (datePicker.getMonth() + 1) + "." + datePicker.getYear() );
                 else if (type.equals("from"))
-                    fromDateEditText.setText(datePicker.getDayOfMonth() + "." + datePicker.getMonth() + "." + datePicker.getYear() );
+                    fromDateEditText.setText(datePicker.getDayOfMonth() + "." + (datePicker.getMonth()+ 1 ) + "." + datePicker.getYear() );
             }
         }, year, month, dayOfMonth);
 

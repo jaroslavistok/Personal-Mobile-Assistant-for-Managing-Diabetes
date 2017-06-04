@@ -27,7 +27,7 @@ import java.util.List;
 public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
 
     public static int MAX_DISPLAYED_ITEMS = 2;
-
+    private List<Record> initialItems;
 
     public List<Record> getItems(){
         List<Record> records = new ArrayList<>();
@@ -43,7 +43,7 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
         Filter filter = new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-                List<Record> records = getItems();
+                List<Record> records = getInitialItems();
                 String filterValue = charSequence.toString();
                 String []range = filterValue.split("&");
                 String fromDate = range[0];
@@ -62,6 +62,7 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = filteredRecords;
                 filterResults.count = filteredRecords.size();
+                Log.w("results", String.valueOf(filteredRecords.size()));
                 return filterResults;
             }
 
@@ -74,6 +75,7 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
 
                     notifyDataSetChanged();
                 } else {
+                    clear();
                     notifyDataSetInvalidated();
                 }
             }
@@ -81,6 +83,7 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
         };
         return filter;
     }
+
 
     private int compareDates(String date1, String date2) {
         long date1Timestamp = getTimestamp(date1);
@@ -111,6 +114,14 @@ public class RecordsAdapter extends ArrayAdapter<Record> implements Filterable {
             e.printStackTrace();
         }
         return strDate.getTime();
+    }
+
+    public void setInitialItems(List<Record> initialItems) {
+        this.initialItems = initialItems;
+    }
+
+    public List<Record> getInitialItems() {
+        return initialItems;
     }
 
     private static class ViewHolder {
